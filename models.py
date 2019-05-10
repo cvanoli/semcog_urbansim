@@ -348,7 +348,7 @@ def gq_pop_scaling_model(group_quarters, group_quarters_control_totals, year):
         if diff > 0:
             diff = min(len(local_gqpop), abs(diff))
             if diff > 0:
-                newgq = local_gqpop.sample(diff, replace=True)
+                newgq = local_gqpop.sample(int(diff), replace=True)
                 newgq.index = gqpop.index.values.max() + 1 + np.arange(len(newgq))
                 gqpop = gqpop.append(newgq)
 
@@ -634,7 +634,7 @@ def scheduled_development_events(buildings, iter_var, events_addition):
         sched_dev['b_city_id'] = city
         b = buildings.to_frame(buildings.local_columns)
         max_id = orca.get_injectable("max_building_id")
-        all_buildings = parcel_utils.merge_buildings(b, sched_dev[b.columns], False, max_id)
+        all_buildings = parcel_utils.merge_buildings(b, sched_dev[b.columns], False)
         orca.add_injectable("max_building_id", max(all_buildings.index.max(), max_id))
         orca.add_table("buildings", all_buildings)
 
@@ -747,7 +747,7 @@ def parcel_average_price(use):
 @orca.injectable('cost_shifters')
 def shifters():
     with open(os.path.join(misc.configs_dir(), "cost_shifters.yaml")) as f:
-        cfg = yaml.load(f)
+        cfg = yaml.safe_load(f)
         return cfg
 
 
@@ -941,11 +941,11 @@ def non_residential_developer(jobs, parcels, target_vacancies):
 @orca.step()
 def build_networks(parcels):
     import yaml
-    pdna.network.reserve_num_graphs(2)
+    # pdna.network.reserve_num_graphs(2)
 
     # networks in semcog_networks.h5
     with open(r"configs/available_networks.yaml", 'r') as stream:
-        dic_net = yaml.load(stream)
+        dic_net = yaml.safe_load(stream)
 
     st = pd.HDFStore(os.path.join(misc.data_dir(), "semcog_networks.h5"), "r")
 
@@ -970,7 +970,7 @@ def build_networks(parcels):
         net = pdna.Network(nodes["x"], nodes["y"], edges["from"], edges["to"],
                            edges[[n_dic_net[n['cost']]]])
         net.precompute(n['prev'])
-        net.init_pois(num_categories=10, max_dist=n['prev'], max_pois=5)
+        # net.init_pois(num_categories=10, max_dist=n['prev'], max_pois=5)
 
         orca.add_injectable(n['net'], net)
 
@@ -1008,10 +1008,14 @@ def neighborhood_vars(jobs, households, buildings):
 
     building_vars = set(orca.get_table('buildings').columns)
 
+    utils._convert_network_types("networks_walk.yaml")
+    utils._convert_network_types("networks_drv.yaml")
+
     nodes = networks.from_yaml(orca.get_injectable('net_walk'), "networks_walk.yaml")
     # print nodes.describe()
     # print pd.Series(nodes.index).describe()
     orca.add_table("nodes_walk", nodes)
+
     # Disaggregate nodal variables to building.
     for var in orca.get_table('nodes_walk').columns:
         if var not in building_vars:

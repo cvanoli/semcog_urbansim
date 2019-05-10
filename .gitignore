@@ -1,5 +1,8 @@
 .idea/
 .ipynb_checkpoints/
+#mine
+configs/Untitled.ipynb
+testing_things.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,5 +1,7 @@
 import orca
 import shutil
+import warnings
+warnings.filterwarnings("ignore")
 
 import os
 
@@ -12,11 +14,11 @@ print data_out
 
 import sys,statvfs
 
-f = os.statvfs("/home")
-freespace=f[statvfs.F_BAVAIL] * f[statvfs.F_BSIZE] / (1048576 * 1024.0)
-if freespace < 10:
-    print freespace, 'GB available. Disk space is too small, stop running'
-    sys.exit()
+# f = os.statvfs("/home")
+# freespace=f[statvfs.F_BAVAIL] * f[statvfs.F_BSIZE] / (1048576 * 1024.0)
+# if freespace < 10:
+#     print freespace, 'GB available. Disk space is too small, stop running'
+#     sys.exit()
 
 
 orca.run(["refiner",
@@ -26,7 +28,7 @@ orca.run(["refiner",
           ["increase_property_values"])  # Hack to make more feasibility
 
 orca.run([
-    "neighborhood_vars",
+
     "scheduled_demolition_events",
     "random_demolition_events",
     "scheduled_development_events",
@@ -47,7 +49,7 @@ orca.run([
     "jobs_scaling_model",
     "gq_pop_scaling_model",
     # "travel_model", Fixme: on hold
-],
+    ],
     iter_vars=range(2016, 2045 + 1),
     data_out=data_out,
     out_base_tables=['jobs', 'base_job_space', 'employment_sectors', 'annual_relocation_rates_for_jobs',

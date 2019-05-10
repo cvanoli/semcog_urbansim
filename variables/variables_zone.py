@@ -206,3 +206,43 @@ def make_employment_density_variable(sector_id):
 emp_sectors = np.arange(18) + 1
 for sector in emp_sectors:
     make_employment_density_variable(sector)
+
+## NEIGH (NON PANDANA) VARS , ave_nonres_sqft_price
+
+def make_logged_variable(var_to_log):
+    """
+    Generate logged variable. Registers with orca.
+    """
+    var_name = 'ln_%s' % var_to_log
+    @orca.column('zones', var_name, cache=True, cache_scope='iteration')
+    def func():
+        zones = orca.get_table('zones')
+        return np.log1p(zones[var_to_log]).fillna(0)
+    return func
+
+
+@orca.column('zones', cache=True, cache_scope='iteration')
+def percent_hh_with_children(households):
+    households = households.to_frame(['has_children', 'zone_id'])
+    hh = households.groupby('zone_id').has_children.size()
+    children_hh = households.groupby('zone_id').has_children.sum()
+    return (children_hh * 1.0 / hh).replace([np.inf, -np.inf], np.nan).fillna(0)
+
+@orca.column('zones', cache=True, cache_scope='iteration')
+def percent_low_income(households):
+    households = households.to_frame(['low_income', 'zone_id'])
+    hh = households.groupby('zone_id').low_income.size()
+    low_inc_hh = households.groupby('zone_id').low_income.sum()
+    return (low_inc_hh * 1.0 / hh).replace([np.inf, -np.inf], np.nan).fillna(0)
+
+make_logged_variable('pop_den')
+
+@orca.column('zones', cache=True, cache_scope='iteration')
+def ave_res_sqft_price(zones, buildings):
+    buildings = buildings.to_frame(['sqft_price_res', 'zone_id'])
+    return buildings.groupby('zone_id').sqft_price_res.mean()
+
+@orca.column('zones', cache=True, cache_scope='iteration')
+def ave_nonres_sqft_price(zones, buildings):
+    buildings = buildings.to_frame(['sqft_price_nonres', 'zone_id'])
+    return buildings.groupby('zone_id').sqft_price_nonres.mean()

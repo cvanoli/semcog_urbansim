@@ -25,6 +25,29 @@ def hedonic_id(buildings):
 def general_type(buildings, building_type_map):
     return buildings.building_type_id.map(building_type_map).fillna(0)
 
+@orca.column('buildings', cache=True)
+def is_medical(buildings):
+    return (buildings.general_type == 'Medical').astype('int')
+
+@orca.column('buildings', cache=True)
+def is_tcu(buildings):
+    return (buildings.general_type == 'TCU').astype('int')
+
+@orca.column('buildings', cache=True)
+def is_institutional(buildings):
+    return (buildings.general_type == 'Institutional').astype('int')
+
+@orca.column('buildings', cache=True)
+def is_retail(buildings):
+    return (buildings.general_type == 'Retail').astype('int')
+
+@orca.column('buildings', cache=True)
+def is_office(buildings):
+    return (buildings.general_type == 'Office').astype('int')
+
+@orca.column('buildings', cache=True)
+def is_industrial(buildings):
+    return (buildings.general_type == 'Industrial').astype('int')
 
 @orca.column('buildings', cache=True, cache_scope='iteration')
 def gq_building(buildings, group_quarters):
@@ -411,3 +434,28 @@ for var_to_log in vars_to_log:
 emp_sectors = np.arange(18) + 1
 for sector in emp_sectors:
     make_employment_proportion_variable(sector)
+
+#   ---- ZONES AGG VARIABLES --
+@orca.column('buildings', cache=True, cache_scope='iteration')
+def zones_percent_hh_with_children(buildings, zones):
+    return misc.reindex(zones.percent_hh_with_children, buildings.zone_id).fillna(0)
+
+@orca.column('buildings', cache=True, cache_scope='iteration')
+def zones_ave_nonres_sqft_price(buildings, zones):
+    return misc.reindex(zones.ave_nonres_sqft_price, buildings.zone_id).fillna(0)
+
+@orca.column('buildings', cache=True, cache_scope='iteration')
+def zones_percent_low_income(buildings, zones):
+    return misc.reindex(zones.percent_low_income, buildings.zone_id).fillna(0)
+
+@orca.column('buildings', cache=True, cache_scope='iteration')
+def zones_ln_popden(buildings, zones):
+    return misc.reindex(zones.ln_popden, buildings.zone_id).fillna(0)
+
+
+
+
+
+
+
+
