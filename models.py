@@ -1035,7 +1035,7 @@ def neighborhood_vars(jobs, households, buildings):
     # Disaggregate nodal variables to building.
     for var in orca.get_table('nodes_walk').columns:
         if var not in building_vars:
-            variables.make_disagg_var('nodes_walk', 'buildings', var, 'nodeid_walk')
+            variables_building.make_disagg_var('nodes_walk', 'buildings', var, 'nodeid_walk')
 
     nodes = networks.from_yaml(orca.get_injectable('net_drv'), "networks_drv.yaml")
     # print nodes.describe()
@@ -1044,7 +1044,7 @@ def neighborhood_vars(jobs, households, buildings):
     # Disaggregate nodal variables to building.
     for var in orca.get_table('nodes_drv').columns:
         if var not in building_vars:
-            variables.make_disagg_var('nodes_drv', 'buildings', var, 'nodeid_drv')
+            variables_building.make_disagg_var('nodes_drv', 'buildings', var, 'nodeid_drv')
 
 
 @orca.step()
