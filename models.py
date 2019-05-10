@@ -908,7 +908,7 @@ def residential_developer(households, parcels, target_vacancies):
         target_vacancy = float(target_vacancies[target_vacancies.large_area_id == lid].res_target_vacancy_rate)
         target_units = parcel_utils.compute_units_to_build((households.large_area_id == lid,
                                                            'residential_units',
-                                                           target_vacancy)
+                                                           target_vacancy))
         register_btype_distributions(la_orig_buildings)
         run_developer(
             target_units,
