@@ -920,7 +920,7 @@ def residential_developer(households, parcels, target_vacancies):
             parcels.ave_unit_size,
             parcels.total_units,
             'res_developer.yaml',
-            add_more_columns_callback=add_extra_columns_res
+            add_more_columns_callback=add_extra_columns_res)
 
 
 @orca.step()
