@@ -1,19 +1,25 @@
-import os
-import yaml
-import operator
+import orca
+from urbansim.utils import misc
+from urbansim.models import relocation
 from multiprocessing import Pool
+import operator
 
 import numpy as np
-import orca
-import pandana as pdna
+import yaml
 import pandas as pd
+import os
+import pandana as pdna
 from urbansim.models import transition, relocation
 from urbansim.utils import misc, networks
+from variables import variables_building
+from variables import variables_parcel
+from multiprocessing import Pool
 from urbansim_parcels import utils as parcel_utils
-
-import utils
+import assumptions
+import utils as utils
 import lcm_utils
-import variables
+
+import pandana as pdna
 
 # Set up location choice model objects.
 # Register as injectable to be used throughout simulation
