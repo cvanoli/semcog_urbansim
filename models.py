@@ -762,14 +762,24 @@ def cost_shifter_callback(self, form, df, costs):
         costs[:, geo_df.index] *= shifter
     return costs
 
+def parcel_custom_callback(parcels, df):
+    parcels['max_height'] = orca.get_table('parcels').max_height
+    parcels['max_far'] = orca.get_table('parcels').max_far
+    parcels['parcel_size'] = orca.get_table('parcels').parcel_size
+    parcels['land_cost'] = orca.get_table('parcels').land_cost
+    parcels['max_dua'] = orca.get_table('parcels').max_dua
+    parcels['ave_unit_size'] = orca.get_table('parcels').ave_unit_size
+    parcels = parcels[parcels.parcel_size > 2000]
+    return parcels
 
 @orca.step('feasibility')
 def feasibility(parcels):
     parcel_utils.run_feasibility(parcels,
                                  parcel_average_price,
-                                 variables.parcel_is_allowed,
+                                 variables_parcel.parcel_is_allowed,
                                  cfg='proforma.yaml',
-                                 modify_costs=cost_shifter_callback
+                                 modify_costs=cost_shifter_callback,
+                                 parcel_custom_callback=parcel_custom_callback
                                  )
     feasibility = orca.get_table('feasibility').to_frame()
     for lid, df in parcels.large_area_id.to_frame().groupby('large_area_id'):
@@ -782,9 +792,10 @@ def add_extra_columns_nonres(df):
                 'sqft_price_res', 'sqft_per_unit', 'hu_filter']:
         df[col] = 0
     df['year_built'] = orca.get_injectable('year')
-    p = orca.get_table('parcels').to_frame(['zone_id', 'city_id'])
+    p = orca.get_table('parcels').to_frame(['zone_id', 'city_id', 'large_area_id'])
     for col in ['zone_id', 'city_id']:
         df['b_' + col] = misc.reindex(p[col], df.parcel_id)
+    df['large_area_id'] = misc.reindex(p['large_area_id'], df.parcel_id)
     return df.fillna(0)
 
 
@@ -895,8 +906,8 @@ def residential_developer(households, parcels, target_vacancies):
     for lid, _ in parcels.large_area_id.to_frame().groupby('large_area_id'):
         la_orig_buildings = orig_buildings[orig_buildings.large_area_id == lid]
         target_vacancy = float(target_vacancies[target_vacancies.large_area_id == lid].res_target_vacancy_rate)
-        target_units = parcel_utils.compute_units_to_build((households.large_area_id == lid).sum(),
-                                                           la_orig_buildings.residential_units.sum(),
+        target_units = parcel_utils.compute_units_to_build((households.large_area_id == lid,
+                                                           'residential_units',
                                                            target_vacancy)
         register_btype_distributions(la_orig_buildings)
         run_developer(
@@ -909,7 +920,7 @@ def residential_developer(households, parcels, target_vacancies):
             parcels.ave_unit_size,
             parcels.total_units,
             'res_developer.yaml',
-            add_more_columns_callback=add_extra_columns_res)
+            add_more_columns_callback=add_extra_columns_res
 
 
 @orca.step()
@@ -921,8 +932,8 @@ def non_residential_developer(jobs, parcels, target_vacancies):
         la_orig_buildings = orig_buildings[orig_buildings.large_area_id == lid]
         target_vacancy = float(target_vacancies[target_vacancies.large_area_id == lid].non_res_target_vacancy_rate)
         num_jobs = ((jobs.large_area_id == lid) & (jobs.home_based_status == 0)).sum()
-        target_units = parcel_utils.compute_units_to_build(num_jobs,
-                                                           la_orig_buildings.job_spaces.sum(),
+        target_units = parcel_utils.compute_units_to_build((jobs.large_area_id == lid) & (jobs.home_based_status == 0),
+                                                           'job_spaces',
                                                            target_vacancy)
         register_btype_distributions(la_orig_buildings)
         run_developer(
@@ -942,7 +953,6 @@ def non_residential_developer(jobs, parcels, target_vacancies):
 def build_networks(parcels):
     import yaml
     # pdna.network.reserve_num_graphs(2)
-
     # networks in semcog_networks.h5
     with open(r"configs/available_networks.yaml", 'r') as stream:
         dic_net = yaml.safe_load(stream)
