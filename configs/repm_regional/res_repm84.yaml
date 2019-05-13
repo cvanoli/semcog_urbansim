@@ -1,0 +1,56 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 84
+- residential_units > 0
+- sqft_price_res > 1
+- sqft_price_res < 600
+
+predict_filters: building_type_id == 84
+
+model_expression: np.log1p(sqft_price_res) ~ st_b_ln_building_sqft + st_zones_empden
+    + st_zones_prop_race_1 + st_b_ln_parcels_parcel_far + st_zones_prop_income_1 +
+    st_zones_empden + st_building_age_gt_50 + st_zones_mean_hh_size + st_zones_prop_residential_buildings
+    + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 2.5846157857131886
+        st_b_ln_building_sqft: -1.2035695904839194
+        st_b_ln_parcels_parcel_far: -0.20924940683866405
+        st_building_age_gt_50: -0.011007842083153613
+        st_zones_empden: 0.2804184237444869
+        st_zones_mean_hh_size: 0.018141313594124974
+        st_zones_prop_income_1: -0.09426891293009615
+        st_zones_prop_race_1: -0.13230446700261145
+        st_zones_prop_residential_buildings: 0.10207565526450024
+    Std. Error:
+        Intercept: 0.03851249826828102
+        st_b_ln_building_sqft: 0.05830204240885003
+        st_b_ln_parcels_parcel_far: 0.0038443718597143
+        st_building_age_gt_50: 0.0018886162055464114
+        st_zones_empden: 0.008351805682756218
+        st_zones_mean_hh_size: 0.002567156036966712
+        st_zones_prop_income_1: 0.0033071931398842005
+        st_zones_prop_race_1: 0.0049248887209056725
+        st_zones_prop_residential_buildings: 0.0038665510523568825
+    T-Score:
+        Intercept: 67.11109125428729
+        st_b_ln_building_sqft: -20.643695156401968
+        st_b_ln_parcels_parcel_far: -54.43006412345728
+        st_building_age_gt_50: -5.8285225186706695
+        st_zones_empden: 33.575784015600405
+        st_zones_mean_hh_size: 7.066696894498202
+        st_zones_prop_income_1: -28.50420551289512
+        st_zones_prop_race_1: -26.864458163489438
+        st_zones_prop_residential_buildings: 26.399665718180376
+
+fit_rsquared_adj: 0.11145919061530529
+
+fit_rsquared: 0.11158316728746731

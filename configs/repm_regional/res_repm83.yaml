@@ -1,0 +1,55 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 83
+- residential_units > 0
+- sqft_price_res > 1
+- sqft_price_res < 600
+
+predict_filters: building_type_id == 83
+
+model_expression: np.log1p(sqft_price_res) ~ st_zones_logsum_job_high_income + st_b_ln_residential_units
+    + st_stories + st_b_ln_building_sqft + st_zones_mean_sqft_per_unit + st_zones_mean_income
+    + st_zones_ln_empden + st_zones_transit_jobs_30min + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 3.8228000158051394
+        st_b_ln_building_sqft: -0.11167724745169483
+        st_b_ln_residential_units: 0.10974070762760946
+        st_stories: -0.048252086498079036
+        st_zones_ln_empden: 0.08910453961496098
+        st_zones_logsum_job_high_income: -0.3194942221404159
+        st_zones_mean_income: 0.4855752103091031
+        st_zones_mean_sqft_per_unit: -0.07472485608655677
+        st_zones_transit_jobs_30min: 0.05097271246652116
+    Std. Error:
+        Intercept: 0.011578666466889553
+        st_b_ln_building_sqft: 0.00859715017480558
+        st_b_ln_residential_units: 0.004652800126799045
+        st_stories: 0.0022275557589535727
+        st_zones_ln_empden: 0.0047483017675915284
+        st_zones_logsum_job_high_income: 0.005499611524013685
+        st_zones_mean_income: 0.007834640749426231
+        st_zones_mean_sqft_per_unit: 0.006590242607150343
+        st_zones_transit_jobs_30min: 0.0025091954929437423
+    T-Score:
+        Intercept: 330.15892000489424
+        st_b_ln_building_sqft: -12.990031019694309
+        st_b_ln_residential_units: 23.58594924280726
+        st_stories: -21.661449462771774
+        st_zones_ln_empden: 18.765559557129265
+        st_zones_logsum_job_high_income: -58.09396186355451
+        st_zones_mean_income: 61.977980336196545
+        st_zones_mean_sqft_per_unit: -11.338710961183903
+        st_zones_transit_jobs_30min: 20.31436474753145
+
+fit_rsquared_adj: 0.32915759301738
+
+fit_rsquared: 0.32940916285077704

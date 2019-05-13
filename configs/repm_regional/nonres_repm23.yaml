@@ -1,0 +1,69 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 23
+- non_residential_sqft > 0
+- sqft_price_nonres > 1
+- sqft_price_nonres < 650
+
+predict_filters: building_type_id == 23
+
+model_expression: np.log1p(sqft_price_nonres) ~ st_zones_logsum_job_high_income +
+    st_zones_ln_empden_14 + st_zones_prop_office_buildings + st_year_built + st_crime_other_rate
+    + st_building_age_gt_50 + st_b_total_jobs + st_b_ln_building_sqft + st_bldg_empratio_9
+    + st_parcels_total_units + st_zones_prop_income_4 + st_zones_prop_hh_with_children
+    + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 4.265272967343769
+        st_b_ln_building_sqft: -0.1204351425948204
+        st_b_total_jobs: 0.007944265723087488
+        st_bldg_empratio_9: 0.05864951298123397
+        st_building_age_gt_50: -0.05959011004880803
+        st_crime_other_rate: -0.22387027305233986
+        st_parcels_total_units: -0.2377919532611384
+        st_year_built: 0.03246801619012624
+        st_zones_ln_empden_14: 0.07351145923114463
+        st_zones_logsum_job_high_income: -0.09198697176180892
+        st_zones_prop_hh_with_children: -0.06132146568670149
+        st_zones_prop_income_4: 0.20568792264608357
+        st_zones_prop_office_buildings: 0.008441450432705201
+    Std. Error:
+        Intercept: 0.008930423745542088
+        st_b_ln_building_sqft: 0.004008455832211709
+        st_b_total_jobs: 0.0010253588265085622
+        st_bldg_empratio_9: 0.0031503629762045485
+        st_building_age_gt_50: 0.007621197466737177
+        st_crime_other_rate: 0.006523078650944432
+        st_parcels_total_units: 0.008979512217506619
+        st_year_built: 0.006020614473970399
+        st_zones_ln_empden_14: 0.0040513062612329
+        st_zones_logsum_job_high_income: 0.007232263944395587
+        st_zones_prop_hh_with_children: 0.005201898114158908
+        st_zones_prop_income_4: 0.007690698529585962
+        st_zones_prop_office_buildings: 0.001392608874214473
+    T-Score:
+        Intercept: 477.6114873018113
+        st_b_ln_building_sqft: -30.045271205687456
+        st_b_total_jobs: 7.747790839367344
+        st_bldg_empratio_9: 18.616747791993458
+        st_building_age_gt_50: -7.818995677370898
+        st_crime_other_rate: -34.319726164872655
+        st_parcels_total_units: -26.481611417325645
+        st_year_built: 5.3928077159729915
+        st_zones_ln_empden_14: 18.145125174706862
+        st_zones_logsum_job_high_income: -12.718973266053336
+        st_zones_prop_hh_with_children: -11.788286571740462
+        st_zones_prop_income_4: 26.745024766580862
+        st_zones_prop_office_buildings: 6.061608962147939
+
+fit_rsquared_adj: 0.28194887042197536
+
+fit_rsquared: 0.2825086815936837

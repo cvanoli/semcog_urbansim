@@ -1,0 +1,58 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 32
+- non_residential_sqft > 0
+- sqft_price_nonres > 1
+- sqft_price_nonres < 650
+
+predict_filters: building_type_id == 32
+
+model_expression: np.log1p(sqft_price_nonres) ~ st_zones_logsum_job_low_income + st_year_built
+    + st_zones_prop_income_4 + st_b_total_jobs + st_building_sqft + st_parcels_parcel_far
+    + st_zones_ln_popden + st_zones_ln_empden_10 + st_building_age_gt_100 + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 3.761771989398085
+        st_b_total_jobs: 0.0540883977137388
+        st_building_age_gt_100: 0.22142352189164682
+        st_building_sqft: -0.035125607011139696
+        st_parcels_parcel_far: -0.35015854055425905
+        st_year_built: 0.08447234011673639
+        st_zones_ln_empden_10: 0.05940221640696928
+        st_zones_ln_popden: -0.05503875543740973
+        st_zones_logsum_job_low_income: -0.2635054477400218
+        st_zones_prop_income_4: 0.12427256532563177
+    Std. Error:
+        Intercept: 0.06662611534344522
+        st_b_total_jobs: 0.01120564288885766
+        st_building_age_gt_100: 0.09255766296684423
+        st_building_sqft: 0.00623967482540884
+        st_parcels_parcel_far: 0.06845058988095402
+        st_year_built: 0.030154069438343836
+        st_zones_ln_empden_10: 0.01601442896324809
+        st_zones_ln_popden: 0.03906842866955647
+        st_zones_logsum_job_low_income: 0.05077690587007349
+        st_zones_prop_income_4: 0.04109936765104921
+    T-Score:
+        Intercept: 56.460923318234165
+        st_b_total_jobs: 4.826889295885169
+        st_building_age_gt_100: 2.3922764987158827
+        st_building_sqft: -5.629397042952182
+        st_parcels_parcel_far: -5.115493396963239
+        st_year_built: 2.801357882704932
+        st_zones_ln_empden_10: 3.7092934467593506
+        st_zones_ln_popden: -1.4087783233600566
+        st_zones_logsum_job_low_income: -5.189474293968839
+        st_zones_prop_income_4: 3.0237099115674413
+
+fit_rsquared_adj: 0.45698806794864943
+
+fit_rsquared: 0.47726652184268326

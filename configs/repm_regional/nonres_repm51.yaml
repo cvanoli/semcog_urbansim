@@ -1,0 +1,58 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 51
+- non_residential_sqft > 0
+- sqft_price_nonres > 1
+- sqft_price_nonres < 650
+
+predict_filters: building_type_id == 51
+
+model_expression: np.log1p(sqft_price_nonres) ~ st_zones_logsum_job_low_income + st_zones_prop_medical_buildings
+    + st_year_built + st_b_ln_building_sqft + st_zones_mean_hh_size + st_b_total_jobs
+    + st_stories + st_zones_ln_empden_11 + st_zones_mean_income + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 4.679846541894295
+        st_b_ln_building_sqft: -0.08283025399708549
+        st_b_total_jobs: 0.06042444188475812
+        st_stories: -0.055998642816739184
+        st_year_built: 0.06358593653062722
+        st_zones_ln_empden_11: 0.030067350023360858
+        st_zones_logsum_job_low_income: -0.2759354028870632
+        st_zones_mean_hh_size: -0.06606260300618101
+        st_zones_mean_income: 0.2204422797366119
+        st_zones_prop_medical_buildings: -0.0206873638910458
+    Std. Error:
+        Intercept: 0.019099349040207735
+        st_b_ln_building_sqft: 0.011462195806351176
+        st_b_total_jobs: 0.007988364747498792
+        st_stories: 0.011122224785997555
+        st_year_built: 0.011551321055240451
+        st_zones_ln_empden_11: 0.00474934848367477
+        st_zones_logsum_job_low_income: 0.014493716351082563
+        st_zones_mean_hh_size: 0.010787867682160555
+        st_zones_mean_income: 0.015398150920508887
+        st_zones_prop_medical_buildings: 0.002040336738883488
+    T-Score:
+        Intercept: 245.02649446545718
+        st_b_ln_building_sqft: -7.226386234929736
+        st_b_total_jobs: 7.564056448934359
+        st_stories: -5.034841849918307
+        st_year_built: 5.504646284745102
+        st_zones_ln_empden_11: 6.330836771972666
+        st_zones_logsum_job_low_income: -19.03827812019055
+        st_zones_mean_hh_size: -6.123786919951379
+        st_zones_mean_income: 14.316152690970416
+        st_zones_prop_medical_buildings: -10.13919099568159
+
+fit_rsquared_adj: 0.2717386576145715
+
+fit_rsquared: 0.27383136262142627

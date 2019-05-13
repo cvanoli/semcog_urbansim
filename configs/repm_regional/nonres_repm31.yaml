@@ -1,0 +1,65 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 31
+- non_residential_sqft > 0
+- sqft_price_nonres > 1
+- sqft_price_nonres < 650
+
+predict_filters: building_type_id == 31
+
+model_expression: np.log1p(sqft_price_nonres) ~ st_zones_prop_income_4 + st_zones_prop_race_1
+    + st_year_built + st_crime_other_rate + st_b_ln_building_sqft + st_b_ln_parcel_sqft
+    + st_zones_prop_hh_with_children + st_vacant_job_spaces + st_b_total_jobs + st_zones_ln_popden
+    + st_zones_ln_empden + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 3.6262091105104077
+        st_b_ln_building_sqft: -0.08748832994067837
+        st_b_ln_parcel_sqft: 0.054247451867026536
+        st_b_total_jobs: 0.018476169318662618
+        st_crime_other_rate: -0.27961014332295053
+        st_vacant_job_spaces: -0.01252800183473585
+        st_year_built: 0.05206121464126878
+        st_zones_ln_empden: 0.0950985738634722
+        st_zones_ln_popden: -0.10276444163896849
+        st_zones_prop_hh_with_children: -0.027723668444937146
+        st_zones_prop_income_4: 0.08958825507240034
+        st_zones_prop_race_1: 0.12288405516289347
+    Std. Error:
+        Intercept: 0.012483841753804122
+        st_b_ln_building_sqft: 0.0037530084374027845
+        st_b_ln_parcel_sqft: 0.0074067525248673344
+        st_b_total_jobs: 0.0016089069304170284
+        st_crime_other_rate: 0.0061592387285476875
+        st_vacant_job_spaces: 0.0010273618737612362
+        st_year_built: 0.0055227432155789775
+        st_zones_ln_empden: 0.005722069092327402
+        st_zones_ln_popden: 0.005977022598433773
+        st_zones_prop_hh_with_children: 0.003677900804478163
+        st_zones_prop_income_4: 0.008545721646894537
+        st_zones_prop_race_1: 0.006383586309446811
+    T-Score:
+        Intercept: 290.4722105601359
+        st_b_ln_building_sqft: -23.311519651478164
+        st_b_ln_parcel_sqft: 7.3240535153424995
+        st_b_total_jobs: 11.483678122931323
+        st_crime_other_rate: -45.396867315269816
+        st_vacant_job_spaces: -12.194341793967933
+        st_year_built: 9.426694779943873
+        st_zones_ln_empden: 16.61961299820511
+        st_zones_ln_popden: -17.193249640029304
+        st_zones_prop_hh_with_children: -7.5379054299618895
+        st_zones_prop_income_4: 10.483404301491163
+        st_zones_prop_race_1: 19.250002930334368
+
+fit_rsquared_adj: 0.4053858503075487
+
+fit_rsquared: 0.40593209681219355

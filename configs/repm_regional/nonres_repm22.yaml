@@ -1,0 +1,59 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 22
+- non_residential_sqft > 0
+- sqft_price_nonres > 1
+- sqft_price_nonres < 650
+
+predict_filters: building_type_id == 22
+
+model_expression: np.log1p(sqft_price_nonres) ~ st_zones_logsum_job_high_income +
+    st_zones_prop_income_4 + st_year_built + st_zones_employment + st_zones_ln_empden_5
+    + st_b_ln_building_sqft + st_zones_prop_race_1 + st_zones_popden + st_bldg_empratio_5
+    + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 4.576102103790184
+        st_b_ln_building_sqft: -0.2864429301982594
+        st_bldg_empratio_5: 0.0872013175104509
+        st_year_built: 0.1025069535770815
+        st_zones_employment: 0.13406643997030146
+        st_zones_ln_empden_5: 0.1022023678988736
+        st_zones_logsum_job_high_income: 0.03433975705908065
+        st_zones_popden: -0.02600968767947829
+        st_zones_prop_income_4: 0.1891689393180438
+        st_zones_prop_race_1: 0.3143300596777242
+    Std. Error:
+        Intercept: 0.01833905610851755
+        st_b_ln_building_sqft: 0.00790052529260551
+        st_bldg_empratio_5: 0.002738293987992903
+        st_year_built: 0.009997780407421698
+        st_zones_employment: 0.011797905891584453
+        st_zones_ln_empden_5: 0.008502856806584188
+        st_zones_logsum_job_high_income: 0.015955326355752884
+        st_zones_popden: 0.012553189613608656
+        st_zones_prop_income_4: 0.017924163062357716
+        st_zones_prop_race_1: 0.013906797582721172
+    T-Score:
+        Intercept: 249.52767888990863
+        st_b_ln_building_sqft: -36.25618798617801
+        st_bldg_empratio_5: 31.845126159871228
+        st_year_built: 10.252971099563965
+        st_zones_employment: 11.363579367583547
+        st_zones_ln_empden_5: 12.019768205402823
+        st_zones_logsum_job_high_income: 2.1522441029041715
+        st_zones_popden: -2.071958480678227
+        st_zones_prop_income_4: 10.553850612713674
+        st_zones_prop_race_1: 22.60261989203546
+
+fit_rsquared_adj: 0.4466894166526141
+
+fit_rsquared: 0.4475692391349686

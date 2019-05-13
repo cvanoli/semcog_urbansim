@@ -15,6 +15,7 @@ from variables import variables_building
 from variables import variables_parcel
 from multiprocessing import Pool
 from urbansim_parcels import utils as parcel_utils
+
 import assumptions
 import utils as utils
 import lcm_utils
@@ -99,7 +100,7 @@ def make_repm_func(model_name, yaml_file, dep_var):
 
 
 repm_step_names = []
-for repm_config in os.listdir('./configs/repm'):
+for repm_config in os.listdir('./configs/repm'): # /repm_regional
     model_name = repm_config.split('.')[0]
 
     if repm_config.startswith('res'):
@@ -912,9 +913,9 @@ def residential_developer(households, parcels, target_vacancies):
     for lid, _ in parcels.large_area_id.to_frame().groupby('large_area_id'):
         la_orig_buildings = orig_buildings[orig_buildings.large_area_id == lid]
         target_vacancy = float(target_vacancies[target_vacancies.large_area_id == lid].res_target_vacancy_rate)
-        target_units = parcel_utils.compute_units_to_build((households.large_area_id == lid,
+        target_units = parcel_utils.compute_units_to_build(households.large_area_id == lid,
                                                            'residential_units',
-                                                           target_vacancy))
+                                                           target_vacancy)
         register_btype_distributions(la_orig_buildings)
         run_developer(
             target_units,

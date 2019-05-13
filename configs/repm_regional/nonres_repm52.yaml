@@ -1,0 +1,52 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 52
+- non_residential_sqft > 0
+- sqft_price_nonres > 1
+- sqft_price_nonres < 650
+
+predict_filters: building_type_id == 52
+
+model_expression: np.log1p(sqft_price_nonres) ~ st_b_ln_building_sqft + st_building_age_gt_50
+    + st_zones_mean_hh_size + st_zones_ln_empden_14 + st_zones_ln_empden_16 + st_zones_sum_residential_units
+    + st_zones_prop_income_4 + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 3.945128667357882
+        st_b_ln_building_sqft: -0.08943708649400353
+        st_building_age_gt_50: 0.2869241873688918
+        st_zones_ln_empden_14: -0.1072385522441345
+        st_zones_ln_empden_16: 0.30862619641726263
+        st_zones_mean_hh_size: -0.3408987493867886
+        st_zones_prop_income_4: 0.3813511163419913
+        st_zones_sum_residential_units: 0.2550202406643032
+    Std. Error:
+        Intercept: 0.3675255145277676
+        st_b_ln_building_sqft: 0.06191867369206038
+        st_building_age_gt_50: 0.17245127422165593
+        st_zones_ln_empden_14: 0.04869919358028875
+        st_zones_ln_empden_16: 0.13736170365166084
+        st_zones_mean_hh_size: 0.1086967769489236
+        st_zones_prop_income_4: 0.18577573828656666
+        st_zones_sum_residential_units: 0.21764824938655963
+    T-Score:
+        Intercept: 10.734298739577211
+        st_b_ln_building_sqft: -1.4444283309232404
+        st_building_age_gt_50: 1.6637985927555454
+        st_zones_ln_empden_14: -2.202060123795148
+        st_zones_ln_empden_16: 2.246813982446781
+        st_zones_mean_hh_size: -3.1362360408071366
+        st_zones_prop_income_4: 2.0527498362231866
+        st_zones_sum_residential_units: 1.1717082098435263
+
+fit_rsquared_adj: 0.27679059589232957
+
+fit_rsquared: 0.3723088190763615

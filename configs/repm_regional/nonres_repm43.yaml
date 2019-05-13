@@ -1,0 +1,46 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 43
+- non_residential_sqft > 0
+- sqft_price_nonres > 1
+- sqft_price_nonres < 650
+
+predict_filters: building_type_id == 43
+
+model_expression: np.log1p(sqft_price_nonres) ~ st_b_is_pre_1945 + st_b_ln_building_sqft
+    + st_zones_prop_industrial_buildings + st_zones_ln_empden + st_b_ln_parcels_parcel_far
+    + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 4.41892363947365
+        st_b_is_pre_1945: -0.18752902391637705
+        st_b_ln_building_sqft: -0.19723101431468706
+        st_b_ln_parcels_parcel_far: -0.03475962780941948
+        st_zones_ln_empden: 0.15945779863483706
+        st_zones_prop_industrial_buildings: 0.0823438488744267
+    Std. Error:
+        Intercept: 0.13963232490414718
+        st_b_is_pre_1945: 0.08027568079750612
+        st_b_ln_building_sqft: 0.037826364778268326
+        st_b_ln_parcels_parcel_far: 0.018497348732598607
+        st_zones_ln_empden: 0.04250999625248399
+        st_zones_prop_industrial_buildings: 0.03618562635793927
+    T-Score:
+        Intercept: 31.64685285092181
+        st_b_is_pre_1945: -2.336062703590337
+        st_b_ln_building_sqft: -5.2141149558204045
+        st_b_ln_parcels_parcel_far: -1.879168107381855
+        st_zones_ln_empden: 3.751065930181526
+        st_zones_prop_industrial_buildings: 2.2755955102145173
+
+fit_rsquared_adj: 0.2463589102716015
+
+fit_rsquared: 0.270514073403922

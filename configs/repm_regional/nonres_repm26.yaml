@@ -1,0 +1,58 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 26
+- non_residential_sqft > 0
+- sqft_price_nonres > 1
+- sqft_price_nonres < 650
+
+predict_filters: building_type_id == 26
+
+model_expression: np.log1p(sqft_price_nonres) ~ st_b_total_jobs + st_bldg_empratio_16
+    + st_year_built + st_b_ln_building_sqft + st_b_ln_parcel_sqft + st_zones_prop_race_1
+    + st_zones_ln_empden + st_crime_ucr_rate + st_zones_prop_income_1 + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 4.4454571120588415
+        st_b_ln_building_sqft: -0.2658994200512687
+        st_b_ln_parcel_sqft: 0.22573758362466223
+        st_b_total_jobs: 0.15857227151960174
+        st_bldg_empratio_16: 0.03694407576332365
+        st_crime_ucr_rate: -0.09447356807488216
+        st_year_built: 0.08339200487701609
+        st_zones_ln_empden: 0.18411312958575266
+        st_zones_prop_income_1: -0.11227523640995687
+        st_zones_prop_race_1: 0.18166221864460622
+    Std. Error:
+        Intercept: 0.018094714108952994
+        st_b_ln_building_sqft: 0.009329751347164671
+        st_b_ln_parcel_sqft: 0.011945871863572793
+        st_b_total_jobs: 0.011273229487359045
+        st_bldg_empratio_16: 0.0016870983015143976
+        st_crime_ucr_rate: 0.007965475469356645
+        st_year_built: 0.008120134778813447
+        st_zones_ln_empden: 0.007572792903636806
+        st_zones_prop_income_1: 0.010129469000603969
+        st_zones_prop_race_1: 0.011544304180473102
+    T-Score:
+        Intercept: 245.67711240374314
+        st_b_ln_building_sqft: -28.500161489520945
+        st_b_ln_parcel_sqft: 18.89670224180257
+        st_b_total_jobs: 14.066268383643996
+        st_bldg_empratio_16: 21.897998314716677
+        st_crime_ucr_rate: -11.860380267106967
+        st_year_built: 10.26978087784914
+        st_zones_ln_empden: 24.312447458761614
+        st_zones_prop_income_1: -11.084019942532276
+        st_zones_prop_race_1: 15.736090785955144
+
+fit_rsquared_adj: 0.4296648873383986
+
+fit_rsquared: 0.4305546457044853

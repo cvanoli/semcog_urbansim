@@ -1,0 +1,59 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 53
+- non_residential_sqft > 0
+- sqft_price_nonres > 1
+- sqft_price_nonres < 650
+
+predict_filters: building_type_id == 53
+
+model_expression: np.log1p(sqft_price_nonres) ~ st_building_sqft + st_building_age_gt_80
+    + st_zones_population + st_zones_sum_residential_units + st_zones_logsum_job_low_income
+    + st_parcels_parcel_size + st_b_total_jobs + st_zones_prop_income_4 + st_zones_prop_hh_size_lt2
+    + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 4.133688287841219
+        st_b_total_jobs: 0.08176552490719957
+        st_building_age_gt_80: -0.16771498557779704
+        st_building_sqft: -0.04763822928043526
+        st_parcels_parcel_size: -0.4260863120613235
+        st_zones_logsum_job_low_income: -0.16226424332956169
+        st_zones_population: 0.54641012303223
+        st_zones_prop_hh_size_lt2: 0.20705241499831906
+        st_zones_prop_income_4: 0.1882788314658741
+        st_zones_sum_residential_units: -0.43165276217393234
+    Std. Error:
+        Intercept: 0.05755009781152037
+        st_b_total_jobs: 0.014887546530289147
+        st_building_age_gt_80: 0.042748890420274396
+        st_building_sqft: 0.026495621056241776
+        st_parcels_parcel_size: 0.18310358456605
+        st_zones_logsum_job_low_income: 0.039884281793085063
+        st_zones_population: 0.14622628994377512
+        st_zones_prop_hh_size_lt2: 0.04322423683972238
+        st_zones_prop_income_4: 0.045869452047137466
+        st_zones_sum_residential_units: 0.1314562819170557
+    T-Score:
+        Intercept: 71.82765008287679
+        st_b_total_jobs: 5.492209528335997
+        st_building_age_gt_80: -3.923259385891694
+        st_building_sqft: -1.7979661310566926
+        st_parcels_parcel_size: -2.327023324372023
+        st_zones_logsum_job_low_income: -4.0683757117996855
+        st_zones_population: 3.7367433943809143
+        st_zones_prop_hh_size_lt2: 4.790192497003005
+        st_zones_prop_income_4: 4.10466711641531
+        st_zones_sum_residential_units: -3.28362217369186
+
+fit_rsquared_adj: 0.3246671605173198
+
+fit_rsquared: 0.3415504815043867

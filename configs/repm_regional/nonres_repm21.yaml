@@ -1,0 +1,72 @@
+name: RegressionModel
+
+model_type: regression
+
+fit_filters:
+- building_type_id == 21
+- non_residential_sqft > 0
+- sqft_price_nonres > 1
+- sqft_price_nonres < 650
+
+predict_filters: building_type_id == 21
+
+model_expression: np.log1p(sqft_price_nonres) ~ st_stories + st_bldg_empratio_5 +
+    st_bldg_empratio_16 + st_year_built + st_b_ln_building_sqft + st_zones_prop_race_1
+    + st_zones_prop_income_4 + st_zones_logsum_job_high_income + st_zones_empden +
+    st_zones_ln_empden_5 + st_zones_ln_empden_15 + st_zones_ln_empden_13 + st_crime_ucr_rate
+    + 1
+
+ytransform: np.exp
+
+fitted: true
+
+fit_parameters:
+    Coefficient:
+        Intercept: 4.191765219255785
+        st_b_ln_building_sqft: -0.0968635421740037
+        st_bldg_empratio_16: 0.03138474275269662
+        st_bldg_empratio_5: 0.026706418334716008
+        st_crime_ucr_rate: -0.15921945224666612
+        st_stories: -0.08069802041612739
+        st_year_built: 0.07686152674821131
+        st_zones_empden: 0.018801060566265806
+        st_zones_ln_empden_13: -0.012292091515097449
+        st_zones_ln_empden_15: 0.01780546339088688
+        st_zones_ln_empden_5: 0.09984310229361776
+        st_zones_logsum_job_high_income: 0.0445943288051277
+        st_zones_prop_income_4: 0.15443105596925483
+        st_zones_prop_race_1: 0.2740947867973662
+    Std. Error:
+        Intercept: 0.007161005223153033
+        st_b_ln_building_sqft: 0.0031094810134009686
+        st_bldg_empratio_16: 0.001678468040443544
+        st_bldg_empratio_5: 0.00125319081243694
+        st_crime_ucr_rate: 0.00579752072020273
+        st_stories: 0.005115695811362995
+        st_year_built: 0.004092041264166026
+        st_zones_empden: 0.0015423894838966453
+        st_zones_ln_empden_13: 0.0038441627077965283
+        st_zones_ln_empden_15: 0.003992495294494873
+        st_zones_ln_empden_5: 0.003094257449826926
+        st_zones_logsum_job_high_income: 0.005922921258380724
+        st_zones_prop_income_4: 0.006798215415707361
+        st_zones_prop_race_1: 0.006813186475988236
+    T-Score:
+        Intercept: 585.3598885395207
+        st_b_ln_building_sqft: -31.15103187848702
+        st_bldg_empratio_16: 18.69844524677577
+        st_bldg_empratio_5: 21.31073581905937
+        st_crime_ucr_rate: -27.463369245379507
+        st_stories: -15.774593211128927
+        st_year_built: 18.783174896423237
+        st_zones_empden: 12.189567396924534
+        st_zones_ln_empden_13: -3.197599178142818
+        st_zones_ln_empden_15: 4.459733093596447
+        st_zones_ln_empden_5: 32.26722530770747
+        st_zones_logsum_job_high_income: 7.529110528361035
+        st_zones_prop_income_4: 22.71641107641867
+        st_zones_prop_race_1: 40.23004327906781
+
+fit_rsquared_adj: 0.4269990780356856
+
+fit_rsquared: 0.4273299981594323
