@@ -118,9 +118,9 @@ def large_area_id(buildings, parcels):
     return misc.reindex(parcels.large_area_id, buildings.parcel_id)
 
 
-@orca.column('buildings', cache=True, cache_scope='iteration')
-def popden(buildings, zones):
-    return misc.reindex(zones.popden, buildings.zone_id).fillna(0)
+# @orca.column('buildings', cache=True, cache_scope='iteration')
+# def popden(buildings, zones):
+#     return misc.reindex(zones.popden, buildings.zone_id).fillna(0)
 
 
 @orca.column('buildings', cache=True, cache_scope='iteration')
