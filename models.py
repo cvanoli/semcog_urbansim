@@ -259,19 +259,19 @@ def households_transition(households, persons, annual_household_control_totals, 
     # fix indexes
     out_hh_fixed = []
     out_p_fixed = []
-    hhidmax = region_hh.index.values.max() + 1
-    pidmax = region_p.index.values.max() + 1
+    hhidmax = int(region_hh.index.values.max() + 1)
+    pidmax = int(region_p.index.values.max() + 1)
     for hh, p in out:
         hh.index.name = 'household_id'
         hh = hh.reset_index()
         hh['household_id_old'] = hh['household_id']
-        new_hh = (hh.building_id == -1).sum()
+        new_hh = int((hh.building_id == -1).sum())
         hh.loc[hh.building_id == -1, 'household_id'] = range(hhidmax, hhidmax + new_hh)
         hhidmax += new_hh
         hhid_map = hh[['household_id_old', 'household_id']].set_index('household_id_old')
         p.index.name = 'person_id'
         p = pd.merge(p.reset_index(), hhid_map, left_on='household_id', right_index=True)
-        new_p = (p.household_id_x != p.household_id_y).sum()
+        new_p = int((p.household_id_x != p.household_id_y).sum())
         p.loc[p.household_id_x != p.household_id_y, 'person_id'] = range(pidmax, pidmax + new_p)
         pidmax += new_p
         p['household_id'] = p['household_id_y']
