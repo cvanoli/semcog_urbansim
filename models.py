@@ -145,7 +145,7 @@ orca.add_injectable('repm_step_names', repm_step_names)
 # Regional REPMs
 repm_step_names_regional = []
 for repm_config in os.listdir('./configs/repm_regional'): # /repm_regional
-    model_name = repm_config.split('.')[0]
+    model_name = repm_config.split('.')[0] + '_regional'
 
     if repm_config.startswith('res'):
         dep_var = 'sqft_price_res'

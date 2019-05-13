@@ -28,7 +28,6 @@ orca.run(["refiner",
           ["increase_property_values"])  # Hack to make more feasibility
 
 orca.run([
-
     "scheduled_demolition_events",
     "random_demolition_events",
     "scheduled_development_events",
@@ -51,25 +50,15 @@ orca.run([
     # "travel_model", Fixme: on hold
     ],
     iter_vars=range(2016, 2045 + 1),
-    data_out=data_out,
-    out_base_tables=['jobs', 'base_job_space', 'employment_sectors', 'annual_relocation_rates_for_jobs',
-                     'households', 'persons', 'annual_relocation_rates_for_households',
-                     'buildings', 'parcels', 'zones', 'semmcds', 'counties',
-                     'target_vacancies', 'building_sqft_per_job',
-                     'annual_employment_control_totals',
-                     'travel_data', 'zoning', 'large_areas', 'building_types', 'land_use_types',
-                     'workers_labor_participation_rates', 'workers_employment_rates_by_large_area_age',
-                     'workers_employment_rates_by_large_area',
-                     'transit_stops', 'crime_rates', 'schools', 'poi',
-                     'group_quarters', 'group_quarters_control_totals',
-                     'annual_household_control_totals',
-                     'events_addition', 'events_deletion', 'refiner_events'],
-    out_run_tables=['buildings', 'jobs', 'base_job_space', 'parcels', 'households', 'persons', 'group_quarters', 'dropped_buildings'],
-    out_interval=1,
+    data_out='runs/run_regional.h5',
+    out_base_tables=['jobs', 'base_job_space','households', 'persons', 'buildings', 'parcels'
+                    'zones', 'semmcds', 'counties','large_areas'],
+    out_run_tables=['buildings', 'jobs', 'base_job_space', 'parcels', 'households', 'persons'],
+    out_interval=10,
     compress=True)
 
-output_indicators.main(data_out)
-
-dir_out = data_out.replace('.h5', '')
-shutil.copytree(dir_out, '/mnt/hgfs/U/RDF2045/model_runs/' + os.path.basename(os.path.normpath(dir_out)))
-shutil.copy(data_out, '/mnt/hgfs/J')
+# output_indicators.main(data_out)
+#
+# dir_out = data_out.replace('.h5', '')
+# shutil.copytree(dir_out, '/mnt/hgfs/U/RDF2045/model_runs/' + os.path.basename(os.path.normpath(dir_out)))
+# shutil.copy(data_out, '/mnt/hgfs/J')
