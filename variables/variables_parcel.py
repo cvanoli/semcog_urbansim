@@ -2,7 +2,6 @@ import orca
 import pandas as pd
 from urbansim.utils import misc
 
-
 #####################
 # PARCELS VARIABLES
 #####################

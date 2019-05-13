@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 from urbansim.utils import misc
 
-
 #####################
 # HOUSEHOLDS VARIABLES
 #####################
@@ -23,7 +22,34 @@ def qlid(households):
 def income_quartile(households):
     return pd.Series(pd.qcut(households.income, 4, labels=False),
                      index=households.index) + 1
-
+orca.add_injectable("household_type_map", {
+                1:'income_quartile ==1 & persons <=2 & age_of_head >= 65',
+                2:'income_quartile ==1 & persons <=2 & age_of_head >= 35 & age_of_head < 65',
+                3:'income_quartile ==1 & persons <=2 & age_of_head < 35',
+                4:'income_quartile ==1 & persons > 2 & age_of_head >= 65',
+                5:'income_quartile ==1 & persons > 2 & age_of_head >=35 & age_of_head < 65',
+                6:'income_quartile ==1 & persons > 2 & age_of_head < 35',
+                7:'income_quartile in [2,3] & persons <=2 & age_of_head >= 65',
+                8:'income_quartile in [2,3] & persons <=2 & age_of_head >= 35 & age_of_head < 65',
+                9:'income_quartile in [2,3] & persons <=2 & age_of_head < 35',
+                10:'income_quartile in [2,3] & persons > 2 & age_of_head >= 65',
+                11:'income_quartile in [2,3] & persons > 2 & age_of_head >=35 & age_of_head < 65',
+                12:'income_quartile in [2,3] & persons > 2 & age_of_head < 35',
+                13:'income_quartile ==4 & persons <=2 & age_of_head >= 65',
+                14:'income_quartile ==4 & persons <=2 & age_of_head >= 35 & age_of_head < 65',
+                15:'income_quartile ==4 & persons <=2 & age_of_head < 35',
+                16:'income_quartile ==4 & persons > 2 & age_of_head >= 65',
+                17:'income_quartile ==4 & persons > 2 & age_of_head >= 35 & age_of_head < 65',
+                18:'income_quartile ==4 & persons > 2 & age_of_head < 35'
+                })
+@orca.column('households', cache=True, cache_scope='iteration')
+def household_type(households, household_type_map):
+    df = households.to_frame(['income_quartile', 'age_of_head', 'persons'])
+    df['household_type'] = 0
+    for i, q in household_type_map.iteritems():
+        idx = df.query(q).index.values
+        df.loc[idx, 'household_type']= i
+    return df.household_type.fillna(0)
 
 @orca.column('households', cache=True, cache_scope='iteration')
 def zone_id(households, buildings):
@@ -79,7 +105,6 @@ def nodeid_drv(households, buildings):
 @orca.column('households', cache=True, cache_scope='iteration')
 def ln_income(households):
     return np.log1p(households.income)
-
 
 @orca.column('households', cache=True, cache_scope='iteration')
 def low_income(households):

@@ -2,6 +2,7 @@ import numpy as np
 import orca
 from urbansim.utils import misc
 
+
 #####################
 # TRANSIT VARIABLES
 #####################
