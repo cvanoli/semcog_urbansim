@@ -110,7 +110,7 @@ def diagnostic(parcels, buildings, jobs, households, nodes, iter_var):
     pdb.set_trace()
 
 
-def make_repm_func(model_name, yaml_file, dep_var, access_vars= False):
+def make_repm_func(model_name, yaml_file, dep_var, access_vars= True):
     """
     Generator function for single-model REPMs.
     """
@@ -152,7 +152,7 @@ for repm_config in os.listdir('./configs/repm_regional'): # /repm_regional
     elif repm_config.startswith('nonres'):
         dep_var = 'sqft_price_nonres'
 
-    make_repm_func(model_name, "repm_regional/" + repm_config, dep_var)
+    make_repm_func(model_name, "repm_regional/" + repm_config, dep_var, False)
     repm_step_names_regional.append(model_name)
 orca.add_injectable('repm_step_names_regional', repm_step_names_regional)
 
