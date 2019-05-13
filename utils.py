@@ -111,7 +111,7 @@ def yaml_to_class(cfg):
 
 def hedonic_simulate(cfg, tbl, nodes, out_fname):
     cfg = misc.config(cfg)
-    df = to_frame([tbl, nodes], cfg)
+    df = to_frame([tbl, nodes], cfg) if nodes else to_frame([tbl], cfg)
     price_or_rent, _ = yaml_to_class(cfg).predict_from_cfg(df, cfg)
 
     if price_or_rent.replace([np.inf, -np.inf], np.nan).isnull().sum() > 0:
