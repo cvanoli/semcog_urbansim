@@ -984,7 +984,7 @@ def non_residential_developer(jobs, parcels, target_vacancies):
         num_jobs = ((jobs.large_area_id == lid) & (jobs.home_based_status == 0)).sum()
         target_units = parcel_utils.compute_units_to_build((jobs.large_area_id == lid) & (jobs.home_based_status == 0),
                                                            'job_spaces',
-                                                           target_vacancy)it
+                                                           target_vacancy)
         register_btype_distributions(la_orig_buildings)
         run_developer(
             target_units,
