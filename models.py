@@ -689,7 +689,7 @@ def random_demolition_events(buildings, households, jobs, year, demolition_rates
     buildings_columns = buildings.local_columns
     buildings = buildings.to_frame(buildings.local_columns + ['b_total_jobs', 'b_total_households'])
     b = buildings.copy()
-    allowed = variables.parcel_is_allowed()
+    allowed = variables_parcel.parcel_is_allowed()
     b = b[b.parcel_id.isin(allowed[allowed].index)]
     buildings_idx = []
 
