@@ -51,7 +51,34 @@ for name, model in location_choice_models.items():
     lcm_utils.register_choice_model_step(model.name,
                                          model.choosers,
                                          choice_function=lcm_utils.unit_choices)
+# Register REGIONAL location choice models
+location_choice_models_regional = {}
+hlcm_step_names_regional = []
+elcm_step_names_regional = []
+model_configs = lcm_utils.get_model_category_configs('yaml_configs_regional.yaml')
+for model_category_name, model_category_attributes in model_configs.items():
+    if model_category_attributes['model_type'] == 'location_choice':
+        model_config_files = model_category_attributes['config_filenames']
 
+        for model_config in model_config_files:
+            model = lcm_utils.create_lcm_from_config(model_config,
+                                                     model_category_attributes)
+            location_choice_models_regional[model.name] = model
+
+            if model_category_name == 'hlcm':
+                hlcm_step_names_regional.append(model.name)
+
+            if model_category_name == 'elcm':
+                elcm_step_names_regional.append(model.name)
+
+orca.add_injectable('location_choice_models_regional', location_choice_models_regional)
+orca.add_injectable('hlcm_step_names_regional', sorted(hlcm_step_names_regional, reverse=True))
+orca.add_injectable('elcm_step_names_regional', sorted(elcm_step_names_regional, reverse=True))
+
+for name, model in location_choice_models_regional.items():
+    lcm_utils.register_choice_model_step(model.name,
+                                         model.choosers,
+                                         choice_function=lcm_utils.unit_choices)
 
 @orca.step()
 def elcm_home_based(jobs, households):
@@ -83,24 +110,27 @@ def diagnostic(parcels, buildings, jobs, households, nodes, iter_var):
     pdb.set_trace()
 
 
-def make_repm_func(model_name, yaml_file, dep_var):
+def make_repm_func(model_name, yaml_file, dep_var, access_vars= False):
     """
     Generator function for single-model REPMs.
     """
-
     @orca.step(model_name)
     def func():
         buildings = orca.get_table('buildings')
-        nodes_walk = orca.get_table('nodes_walk')
-        print yaml_file
-        return utils.hedonic_simulate(yaml_file, buildings,
+        if access_vars:
+            nodes_walk = orca.get_table('nodes_walk')
+            print yaml_file
+            return utils.hedonic_simulate(yaml_file, buildings,
                                       nodes_walk, dep_var)
+        else:
+            print yaml_file
+            return utils.hedonic_simulate(yaml_file, buildings, None, dep_var)
 
     return func
 
 
 repm_step_names = []
-for repm_config in os.listdir('./configs/repm'): # /repm_regional
+for repm_config in os.listdir('./configs/repm'):
     model_name = repm_config.split('.')[0]
 
     if repm_config.startswith('res'):
@@ -112,6 +142,19 @@ for repm_config in os.listdir('./configs/repm'): # /repm_regional
     repm_step_names.append(model_name)
 orca.add_injectable('repm_step_names', repm_step_names)
 
+# Regional REPMs
+repm_step_names_regional = []
+for repm_config in os.listdir('./configs/repm_regional'): # /repm_regional
+    model_name = repm_config.split('.')[0]
+
+    if repm_config.startswith('res'):
+        dep_var = 'sqft_price_res'
+    elif repm_config.startswith('nonres'):
+        dep_var = 'sqft_price_nonres'
+
+    make_repm_func(model_name, "repm_regional/" + repm_config, dep_var)
+    repm_step_names_regional.append(model_name)
+orca.add_injectable('repm_step_names_regional', repm_step_names_regional)
 
 @orca.step()
 def increase_property_values(buildings, income_growth_rates):
@@ -941,7 +984,7 @@ def non_residential_developer(jobs, parcels, target_vacancies):
         num_jobs = ((jobs.large_area_id == lid) & (jobs.home_based_status == 0)).sum()
         target_units = parcel_utils.compute_units_to_build((jobs.large_area_id == lid) & (jobs.home_based_status == 0),
                                                            'job_spaces',
-                                                           target_vacancy)
+                                                           target_vacancy)it
         register_btype_distributions(la_orig_buildings)
         run_developer(
             target_units,

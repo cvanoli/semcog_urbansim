@@ -32,25 +32,25 @@ hlcm:
   - hlcm_regional/hlcm17.yaml
   - hlcm_regional/hlcm18.yaml
 
-res_repm:
-  - repm_regional/res_repm81.yaml
-  - repm_regional/res_repm82.yaml
-  - repm_regional/res_repm83.yaml
-  - repm_regional/res_repm84.yaml
-nonres_repm:
-  - repm_regional/nonres_repm21.yaml
-  - repm_regional/nonres_repm22.yaml
-  - repm_regional/nonres_repm23.yaml
-  - repm_regional/nonres_repm24.yaml
-  - repm_regional/nonres_repm31.yaml
-  - repm_regional/nonres_repm32.yaml
-  - repm_regional/nonres_repm33.yaml
-  - repm_regional/nonres_repm41.yaml
-  - repm_regional/nonres_repm42.yaml
-  - repm_regional/nonres_repm43.yaml
-  - repm_regional/nonres_repm51.yaml
-  - repm_regional/nonres_repm52.yaml
-  - repm_regional/nonres_repm53.yaml
-  - repm_regional/nonres_repm61.yaml
-  - repm_regional/nonres_repm62.yaml
-  - repm_regional/nonres_repm71.yaml
+#res_repm:
+#  - repm_regional/res_repm81.yaml
+#  - repm_regional/res_repm82.yaml
+#  - repm_regional/res_repm83.yaml
+#  - repm_regional/res_repm84.yaml
+#nonres_repm:
+#  - repm_regional/nonres_repm21.yaml
+#  - repm_regional/nonres_repm22.yaml
+#  - repm_regional/nonres_repm23.yaml
+#  - repm_regional/nonres_repm24.yaml
+#  - repm_regional/nonres_repm31.yaml
+#  - repm_regional/nonres_repm32.yaml
+#  - repm_regional/nonres_repm33.yaml
+#  - repm_regional/nonres_repm41.yaml
+#  - repm_regional/nonres_repm42.yaml
+#  - repm_regional/nonres_repm43.yaml
+#  - repm_regional/nonres_repm51.yaml
+#  - repm_regional/nonres_repm52.yaml
+#  - repm_regional/nonres_repm53.yaml
+#  - repm_regional/nonres_repm61.yaml
+#  - repm_regional/nonres_repm62.yaml
+#  - repm_regional/nonres_repm71.yaml
