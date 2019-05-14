@@ -71,7 +71,8 @@ for model_category_name, model_category_attributes in model_configs.items():
             if model_category_name == 'elcm':
                 elcm_step_names_regional.append(model.name)
 
-orca.add_injectable('location_choice_models_regional', location_choice_models_regional)
+lcm_models = orca.get_injectable('location_choice_models')
+orca.add_injectable('location_choice_models', lcm_models.update(location_choice_models_regional))
 orca.add_injectable('hlcm_step_names_regional', sorted(hlcm_step_names_regional, reverse=True))
 orca.add_injectable('elcm_step_names_regional', sorted(elcm_step_names_regional, reverse=True))
 
