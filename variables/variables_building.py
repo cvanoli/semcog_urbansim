@@ -118,10 +118,6 @@ def large_area_id(buildings, parcels):
     return misc.reindex(parcels.large_area_id, buildings.parcel_id)
 
 
-# @orca.column('buildings', cache=True, cache_scope='iteration')
-# def popden(buildings, zones):
-#     return misc.reindex(zones.popden, buildings.zone_id).fillna(0)
-
 
 @orca.column('buildings', cache=True, cache_scope='iteration')
 def residential_sqft(buildings):
@@ -498,3 +494,7 @@ def register_standardized_variable(table_name, column_to_s):
 
 for var in orca.get_table('buildings').columns:
     register_standardized_variable('buildings', var)
+
+@orca.column('buildings', cache=True, cache_scope='iteration')
+def popden(buildings, zones):
+    return misc.reindex(zones.popden, buildings.zone_id).fillna(0)
