@@ -10,7 +10,7 @@ import assumptions
 warnings.filterwarnings('ignore', category=pd.io.pytables.PerformanceWarning)
 
 
-for name in ['persons', 'zones', 'semmcds', 'counties', 'employment_sectors',
+for name in ['persons', 'parcels', 'zones', 'semmcds', 'counties', 'employment_sectors',
              'building_sqft_per_job',
              'annual_relocation_rates_for_households',
              'annual_relocation_rates_for_jobs', 'annual_employment_control_totals',
@@ -29,12 +29,6 @@ orca.add_table('target_vacancies', pd.read_csv("data/target_vacancies.csv"))
 orca.add_table('demolition_rates', pd.read_csv("data/DEMOLITION_RATES.csv", index_col='city_id'))
 orca.add_table('extreme_hu_controls', pd.read_csv("data/extreme_hu_controls.csv", index_col='b_city_id'))
 
-@orca.table(cache=True)
-def parcels(store):
-    df = store['parcels']
-    for i, row in df.loc[df.parcel_sqft.isnull()].iterrows():
-        df.loc[i, 'parcel_sqft'] = df[df.zone_id.isin(row.zone_id)].parcel_sqft.mean()
-    return df
 
 @orca.table(cache=True)
 def buildings(store, parcels):
