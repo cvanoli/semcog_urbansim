@@ -59,7 +59,8 @@ def deal_with_nas(df):
             print "Found %d nas or inf (out of %d) in column %s" % \
                   (df_cnt-s_cnt, df_cnt, col)
 
-    assert not fail, "NAs were found in dataframe, please fix"
+    df.fillna(0, inplace= True)
+    # assert not fail, "NAs were found in dataframe, please fix"
     return df
 
 

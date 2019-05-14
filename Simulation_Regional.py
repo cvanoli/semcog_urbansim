@@ -7,18 +7,6 @@ import os
 
 import models, utils
 from urbansim.utils import misc, networks
-import output_indicators
-
-data_out = utils.get_run_filename()
-print data_out
-
-import sys,statvfs
-
-# f = os.statvfs("/home")
-# freespace=f[statvfs.F_BAVAIL] * f[statvfs.F_BSIZE] / (1048576 * 1024.0)
-# if freespace < 10:
-#     print freespace, 'GB available. Disk space is too small, stop running'
-#     sys.exit()
 
 
 orca.run(["refiner",
@@ -56,9 +44,3 @@ orca.run([
     out_run_tables=['buildings', 'jobs', 'base_job_space', 'parcels', 'households', 'persons'],
     out_interval=10,
     compress=True)
-
-# output_indicators.main(data_out)
-#
-# dir_out = data_out.replace('.h5', '')
-# shutil.copytree(dir_out, '/mnt/hgfs/U/RDF2045/model_runs/' + os.path.basename(os.path.normpath(dir_out)))
-# shutil.copy(data_out, '/mnt/hgfs/J')
