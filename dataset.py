@@ -10,7 +10,7 @@ import assumptions
 warnings.filterwarnings('ignore', category=pd.io.pytables.PerformanceWarning)
 
 
-for name in ['persons', 'parcels', 'zones', 'semmcds', 'counties', 'employment_sectors',
+for name in ['persons', 'zones', 'semmcds', 'counties', 'employment_sectors',
              'building_sqft_per_job',
              'annual_relocation_rates_for_households',
              'annual_relocation_rates_for_jobs', 'annual_employment_control_totals',
@@ -29,9 +29,15 @@ orca.add_table('target_vacancies', pd.read_csv("data/target_vacancies.csv"))
 orca.add_table('demolition_rates', pd.read_csv("data/DEMOLITION_RATES.csv", index_col='city_id'))
 orca.add_table('extreme_hu_controls', pd.read_csv("data/extreme_hu_controls.csv", index_col='b_city_id'))
 
+@orca.table(cache=True)
+def parcels(store):
+    df = store['parcels']
+    for i, row in df.loc[df.parcel_sqft.isnull()].iterrows():
+        df.loc[i, 'parcel_sqft'] = df[df.zone_id.isin(row.zone_id)].parcel_sqft.mean()
+    return df
 
 @orca.table(cache=True)
-def buildings(store):
+def buildings(store, parcels):
     df = store['buildings']
     # Todo: combine two sqft prices into one and set non use sqft price to 0
     df.loc[df.improvement_value < 0, 'improvement_value'] = 0
@@ -51,7 +57,10 @@ def buildings(store):
     for c in sample.b_city_id.unique():
         frac = 0.9 if c in cites else 0.5
         df.loc[sample[sample.b_city_id == c].sample(frac=frac, replace=False).index.values, 'hu_filter'] = 1
-
+    #removebuildings with parcel_id with null positions (x,y)
+    parcels = parcels.local
+    df['large_area_id'] = misc.reindex(parcels.large_area_id, df.parcel_id)
+    df = df[df.large_area_id.notnull()]
     return df
 
 
