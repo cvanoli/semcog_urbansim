@@ -51,7 +51,7 @@ orca.run([
     ],
     iter_vars=range(2016, 2045 + 1),
     data_out='runs/run_regional.h5',
-    out_base_tables=['jobs', 'base_job_space','households', 'persons', 'buildings', 'parcels'
+    out_base_tables=['jobs', 'base_job_space','households', 'persons', 'buildings', 'parcels',
                     'zones', 'semmcds', 'counties','large_areas'],
     out_run_tables=['buildings', 'jobs', 'base_job_space', 'parcels', 'households', 'persons'],
     out_interval=10,

@@ -283,6 +283,29 @@ def households_transition(households, persons, annual_household_control_totals, 
     orca.add_table("persons", pd.concat(out_p_fixed, verify_integrity=True))
 
 
+@orca.step('households_transition_2')
+def households_transition_2(households, persons, annual_household_control_totals, iter_var):
+    ct = annual_household_control_totals.to_frame()
+    for col in ct.columns:
+        i = 0
+        if col.endswith('_max'):
+            if len(ct[col][ct[col]==-1]) > 0:
+                ct[col][ct[col]==-1] = np.inf
+                i+=1
+            if i > 0:
+                ct[col] = ct[col] + 1
+    tran = transition.TabularTotalsTransition(ct, 'total_number_of_households')
+    model = transition.TransitionModel(tran)
+    hh = households.to_frame(households.local_columns)
+    p = persons.to_frame(persons.local_columns)
+    new, added_hh_idx, new_linked = \
+        model.transition(hh, iter_var,
+                         linked_tables={'linked': (p, 'household_id')})
+    new.loc[added_hh_idx, "building_id"] = -1
+    orca.add_table("households", new)
+    orca.add_table("persons", new_linked['linked'])
+
+
 @orca.step()
 def fix_lpr(households, persons, iter_var, workers_employment_rates_by_large_area):
     from numpy.random import choice
