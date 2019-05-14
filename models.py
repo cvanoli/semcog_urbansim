@@ -71,8 +71,12 @@ for model_category_name, model_category_attributes in model_configs.items():
             if model_category_name == 'elcm':
                 elcm_step_names_regional.append(model.name)
 
-lcm_models = orca.get_injectable('location_choice_models')
-orca.add_injectable('location_choice_models', lcm_models.update(location_choice_models_regional))
+def merge_two_dicts(x, y):
+    z = x.copy()
+    z.update(y)
+    return z
+lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models_regional)
+orca.add_injectable('location_choice_models', lcm_models_updated)
 orca.add_injectable('hlcm_step_names_regional', sorted(hlcm_step_names_regional, reverse=True))
 orca.add_injectable('elcm_step_names_regional', sorted(elcm_step_names_regional, reverse=True))
 
