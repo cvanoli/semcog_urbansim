@@ -1,0 +1,32 @@
+alts_fit_filters: (non_residential_sqft>0) & (large_area_id == 125)
+alts_predict_filters: large_area_id == 125
+choice_column: building_id
+choice_mode: aggregate
+choosers_fit_filters: (building_id > 0) (slid == 400125) & (home_based_status == 0))
+choosers_predict_filters: (slid == 400125) & (home_based_status == 0)
+estimation_sample_size: 5000
+fit_parameters:
+  Coefficient: {st_b_ln_non_residential_sqft: 1.4139994469225652, st_building_age: -0.3597437392799214,
+    st_is_industrial: 0.0800144248360755, st_is_medical: -0.06712021745746327, st_jobs_within_30_min: -0.0858910237955011,
+    st_zones_ln_empden_4: 0.2662051184453165, st_zones_ln_popden: 0.10899424685249201,
+    st_zones_prop_medical_buildings: -0.011652365040463797, st_zones_prop_office_buildings: -0.013160424636072133}
+  Std. Error: {st_b_ln_non_residential_sqft: 0.0061107336140410855, st_building_age: 0.020581649688340687,
+    st_is_industrial: 0.0029815490517108856, st_is_medical: 0.009258943125364395,
+    st_jobs_within_30_min: 0.02175799851908276, st_zones_ln_empden_4: 0.006567200050523959,
+    st_zones_ln_popden: 0.01819952552638931, st_zones_prop_medical_buildings: 0.006130749512751669,
+    st_zones_prop_office_buildings: 0.00381086616107064}
+  T-Score: {st_b_ln_non_residential_sqft: 231.39602153062503, st_building_age: -17.478858338732337,
+    st_is_industrial: 26.83652807595477, st_is_medical: -7.2492309919898865, st_jobs_within_30_min: -3.947560880665138,
+    st_zones_ln_empden_4: 40.53555798472708, st_zones_ln_popden: 5.988851011222812,
+    st_zones_prop_medical_buildings: -1.9006428196466727, st_zones_prop_office_buildings: -3.4533946037020598}
+fitted: true
+interaction_predict_filters: null
+log_likelihoods: {convergence: -11105.637347363221, 'null': -16999.184513546108, ratio: 0.3466958759984343}
+model_expression: [st_is_industrial, st_is_medical, st_b_ln_non_residential_sqft,
+  st_zones_ln_empden_4, st_jobs_within_30_min, st_zones_ln_popden, st_building_age,
+  st_zones_prop_medical_buildings, st_zones_prop_office_buildings]
+model_type: discretechoice
+name: MNLDiscreteChoiceModel
+prediction_sample_size: null
+probability_mode: single_chooser
+sample_size: 30
