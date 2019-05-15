@@ -215,7 +215,7 @@ orca.add_injectable('repm_step_names', repm_step_names)
 
 # Regional REPMs
 repm_step_names_regional = []
-for repm_config in os.listdir('./configs/repm_regional'): # /repm_regional
+for repm_config in os.listdir('./configs/lcm_regional_clustvars/repm'): # /repm_regional
     model_name = repm_config.split('.')[0] + '_regional'
 
     if repm_config.startswith('res'):
