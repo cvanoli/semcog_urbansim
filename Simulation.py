@@ -28,7 +28,6 @@ orca.run(["refiner",
           ["increase_property_values"])
 
 orca.run([
-
     "scheduled_demolition_events",
     "random_demolition_events",
     "scheduled_development_events",

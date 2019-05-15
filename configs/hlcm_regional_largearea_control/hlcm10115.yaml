@@ -1,0 +1,67 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & (hh_type_large_area_id == 10115)
+
+choosers_predict_filters: hh_type_large_area_id == 10115
+
+alts_fit_filters: (residential_units > 0) & (large_area_id == 115)
+
+alts_predict_filters: (vacant_residential_units > 0) & (large_area_id == 115)
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_b_ln_residential_units
+- st_b_ln_sqft_per_unit
+- st_zones_population
+- st_zones_prop_income_1
+- st_zones_mean_age_of_head
+- st_zones_mean_hh_size
+- st_zones_prop_race_1
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_residential_units: 0.44823275491985787
+        st_b_ln_sqft_per_unit: -0.4682724376681668
+        st_zones_mean_age_of_head: 0.34514769339265
+        st_zones_mean_hh_size: -0.11125683402948805
+        st_zones_population: 0.04559610259394239
+        st_zones_prop_income_1: 0.36722858915782797
+        st_zones_prop_race_1: 0.2368337784147352
+    Std. Error:
+        st_b_ln_residential_units: 0.005552195753371135
+        st_b_ln_sqft_per_unit: 0.08606870219729494
+        st_zones_mean_age_of_head: 0.02571190445492536
+        st_zones_mean_hh_size: 0.026110560936260803
+        st_zones_population: 0.026894185095732562
+        st_zones_prop_income_1: 0.032061460849099714
+        st_zones_prop_race_1: 0.031189221663265182
+    T-Score:
+        st_b_ln_residential_units: 80.73071894983237
+        st_b_ln_sqft_per_unit: -5.440681986754578
+        st_zones_mean_age_of_head: 13.42365338972523
+        st_zones_mean_hh_size: -4.260989807958555
+        st_zones_population: 1.695388889146054
+        st_zones_prop_income_1: 11.453894471191562
+        st_zones_prop_race_1: 7.593449460576927
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -11289.880291345366
+    'null': -13815.510557964428
+    ratio: 0.18281121468674755

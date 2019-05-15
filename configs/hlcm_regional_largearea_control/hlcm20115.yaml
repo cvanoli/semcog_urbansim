@@ -1,0 +1,67 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & (hh_type_large_area_id == 20115)
+
+choosers_predict_filters: hh_type_large_area_id == 20115
+
+alts_fit_filters: (residential_units > 0) & (large_area_id == 115)
+
+alts_predict_filters: (vacant_residential_units > 0) & (large_area_id == 115)
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_b_ln_residential_units
+- st_b_ln_sqft_per_unit
+- st_zones_prop_income_1
+- st_zones_prop_hh_with_children
+- st_zones_mean_hh_size
+- st_zones_prop_race_4
+- st_zones_prop_retail_buildings
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_residential_units: 0.4177337686850646
+        st_b_ln_sqft_per_unit: -1.076404753588986
+        st_zones_mean_hh_size: -0.18304108930027246
+        st_zones_prop_hh_with_children: 0.12145645998399972
+        st_zones_prop_income_1: 0.3444202854355123
+        st_zones_prop_race_4: -0.09455193897909815
+        st_zones_prop_retail_buildings: -0.011470710946535732
+    Std. Error:
+        st_b_ln_residential_units: 0.0061369806647483685
+        st_b_ln_sqft_per_unit: 0.09590310600571549
+        st_zones_mean_hh_size: 0.041467042431983236
+        st_zones_prop_hh_with_children: 0.040682725258926945
+        st_zones_prop_income_1: 0.02096169370889682
+        st_zones_prop_race_4: 0.025396827743020243
+        st_zones_prop_retail_buildings: 0.015072266785644179
+    T-Score:
+        st_b_ln_residential_units: 68.06828821941428
+        st_b_ln_sqft_per_unit: -11.223877916162966
+        st_zones_mean_hh_size: -4.414134178980996
+        st_zones_prop_hh_with_children: 2.9854553550919927
+        st_zones_prop_income_1: 16.430937796277846
+        st_zones_prop_race_4: -3.722982253367595
+        st_zones_prop_retail_buildings: -0.7610474993357464
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -11517.786403788537
+    'null': -13815.510557964428
+    ratio: 0.16631482018239907

@@ -1,0 +1,71 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & (hh_type_large_area_id == 40099)
+
+choosers_predict_filters: hh_type_large_area_id == 40099
+
+alts_fit_filters: (residential_units > 0) & (large_area_id == 99)
+
+alts_predict_filters: (vacant_residential_units > 0) & (large_area_id == 99)
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_b_ln_residential_units
+- st_b_ln_sqft_per_unit
+- st_zones_population
+- st_zones_prop_income_1
+- st_zones_mean_age_of_head
+- st_zones_mean_hh_size
+- st_zones_prop_race_1
+- st_zones_prop_office_buildings
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_residential_units: 0.33492356048648797
+        st_b_ln_sqft_per_unit: -0.34880336332218065
+        st_zones_mean_age_of_head: 0.47841637801800946
+        st_zones_mean_hh_size: 0.269478702246361
+        st_zones_population: 0.05306347625806478
+        st_zones_prop_income_1: 0.6904453594939096
+        st_zones_prop_office_buildings: -0.09702806428450843
+        st_zones_prop_race_1: -0.17408165355048205
+    Std. Error:
+        st_b_ln_residential_units: 0.008009626949363207
+        st_b_ln_sqft_per_unit: 0.09765263893725984
+        st_zones_mean_age_of_head: 0.030778904816160333
+        st_zones_mean_hh_size: 0.02247460278062357
+        st_zones_population: 0.025681435684975284
+        st_zones_prop_income_1: 0.029904646692586138
+        st_zones_prop_office_buildings: 0.0368721061123608
+        st_zones_prop_race_1: 0.028304069736492323
+    T-Score:
+        st_b_ln_residential_units: 41.815126048175756
+        st_b_ln_sqft_per_unit: -3.571878518780029
+        st_zones_mean_age_of_head: 15.543645262089344
+        st_zones_mean_hh_size: 11.990365519549538
+        st_zones_population: 2.06621922967917
+        st_zones_prop_income_1: 23.088229952741177
+        st_zones_prop_office_buildings: -2.631476053709372
+        st_zones_prop_race_1: -6.15041070669916
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -12258.265522876713
+    'null': -13815.510557964428
+    ratio: 0.11271715428497053

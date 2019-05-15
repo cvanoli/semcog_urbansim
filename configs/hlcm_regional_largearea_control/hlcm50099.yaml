@@ -1,0 +1,31 @@
+alts_fit_filters: (residential_units > 0) & (large_area_id == 99)
+alts_predict_filters: (vacant_residential_units > 0) & (large_area_id == 99)
+choice_column: null
+choice_mode: aggregate
+choosers_fit_filters: (building_id > 1) & (hh_type_large_area_id == 50099)
+choosers_predict_filters: hh_type_large_area_id == 50099
+estimation_sample_size: 2000
+fit_parameters:
+  Coefficient: {st_b_ln_residential_units: 0.35614031477850283, st_b_ln_sqft_per_unit: -0.29529238599092117,
+    st_jobs_within_30_min: 0.05631726956225046, st_zones_households: 0.09812220246719179,
+    st_zones_mean_hh_size: 0.20316245391819868, st_zones_prop_hh_with_children: 0.13690350688189512,
+    st_zones_prop_income_1: 0.5423693459723508, st_zones_prop_race_2: 0.07385253027541559}
+  Std. Error: {st_b_ln_residential_units: 0.00751772573812511, st_b_ln_sqft_per_unit: 0.09394506726322235,
+    st_jobs_within_30_min: 0.03107146088278356, st_zones_households: 0.023845711479081252,
+    st_zones_mean_hh_size: 0.034741478681655696, st_zones_prop_hh_with_children: 0.037138448697760916,
+    st_zones_prop_income_1: 0.028126681630437765, st_zones_prop_race_2: 0.026831466179016935}
+  T-Score: {st_b_ln_residential_units: 47.37341147900439, st_b_ln_sqft_per_unit: -3.143245245261774,
+    st_jobs_within_30_min: 1.8125079401546706, st_zones_households: 4.114878373550309,
+    st_zones_mean_hh_size: 5.847835544935315, st_zones_prop_hh_with_children: 3.686301169874903,
+    st_zones_prop_income_1: 19.283090451218268, st_zones_prop_race_2: 2.7524597345027173}
+fitted: true
+interaction_predict_filters: null
+log_likelihoods: {convergence: -12434.291997300526, 'null': -13815.510557964428, ratio: 0.0999759331997796}
+model_expression: [st_b_ln_residential_units, st_b_ln_sqft_per_unit, st_jobs_within_30_min,
+  st_zones_households, st_zones_prop_income_1, st_zones_prop_hh_with_children, st_zones_mean_hh_size,
+  st_zones_prop_race_2]
+model_type: discretechoice
+name: MNLDiscreteChoiceModel
+prediction_sample_size: null
+probability_mode: single_chooser
+sample_size: 1000

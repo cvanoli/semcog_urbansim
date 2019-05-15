@@ -1,0 +1,79 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & (hh_type_large_area_id == 30147)
+
+choosers_predict_filters: hh_type_large_area_id == 30147
+
+alts_fit_filters: (residential_units > 0) & (large_area_id == 147)
+
+alts_predict_filters: (vacant_residential_units > 0) & (large_area_id == 147)
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_b_ln_residential_units
+- st_b_ln_sqft_per_unit
+- st_jobs_within_30_min
+- st_zones_households
+- st_zones_prop_income_1
+- st_zones_prop_income_4
+- st_zones_mean_age_of_head
+- st_zones_mean_hh_size
+- st_zones_prop_race_2
+- st_zones_prop_race_3
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_residential_units: 0.4575131259517461
+        st_b_ln_sqft_per_unit: -1.276915210636587
+        st_jobs_within_30_min: -0.10801113951933154
+        st_zones_households: 0.0008725740207728175
+        st_zones_mean_age_of_head: -0.34610547365164673
+        st_zones_mean_hh_size: -0.13914407605439189
+        st_zones_prop_income_1: 0.20996485454357655
+        st_zones_prop_income_4: -0.2752261306954622
+        st_zones_prop_race_2: -0.007133699459501885
+        st_zones_prop_race_3: -0.05053644594601409
+    Std. Error:
+        st_b_ln_residential_units: 0.005985276168557749
+        st_b_ln_sqft_per_unit: 0.10999300288129059
+        st_jobs_within_30_min: 0.03131887767511848
+        st_zones_households: 0.022314001998256443
+        st_zones_mean_age_of_head: 0.018087088412508313
+        st_zones_mean_hh_size: 0.024620723056838118
+        st_zones_prop_income_1: 0.03839575462825286
+        st_zones_prop_income_4: 0.053557066610824294
+        st_zones_prop_race_2: 0.03465254022218075
+        st_zones_prop_race_3: 0.023740975764549196
+    T-Score:
+        st_b_ln_residential_units: 76.43976870360378
+        st_b_ln_sqft_per_unit: -11.609058550885202
+        st_jobs_within_30_min: -3.448755113122774
+        st_zones_households: 0.03910432654980483
+        st_zones_mean_age_of_head: -19.135499631454994
+        st_zones_mean_hh_size: -5.651502424732658
+        st_zones_prop_income_1: 5.468439325557037
+        st_zones_prop_income_4: -5.138932135611715
+        st_zones_prop_race_2: -0.2058636802313175
+        st_zones_prop_race_3: -2.1286591775843
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -9650.649393838225
+    'null': -13815.510557964428
+    ratio: 0.3014627035788573

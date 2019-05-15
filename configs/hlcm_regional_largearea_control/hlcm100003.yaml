@@ -1,0 +1,31 @@
+alts_fit_filters: (residential_units > 0) & (large_area_id == 3)
+alts_predict_filters: (vacant_residential_units > 0) & (large_area_id == 3)
+choice_column: null
+choice_mode: aggregate
+choosers_fit_filters: (building_id > 1) & (hh_type_large_area_id == 100003)
+choosers_predict_filters: hh_type_large_area_id == 100003
+estimation_sample_size: 2000
+fit_parameters:
+  Coefficient: {st_b_ln_residential_units: 0.3009970995236993, st_b_ln_sqft_per_unit: -0.040764089192914715,
+    st_zones_mean_age_of_head: 0.5027887836417089, st_zones_mean_hh_size: 0.2056432856589641,
+    st_zones_popden: 0.06808508030477602, st_zones_prop_income_2: 0.2834653103694102,
+    st_zones_prop_income_3: 0.2347845154178551, st_zones_prop_race_1: -0.2312779656879599}
+  Std. Error: {st_b_ln_residential_units: 0.00987850803945176, st_b_ln_sqft_per_unit: 0.08079351152587858,
+    st_zones_mean_age_of_head: 0.030529628690699327, st_zones_mean_hh_size: 0.027380942378914645,
+    st_zones_popden: 0.026394651634248697, st_zones_prop_income_2: 0.026654609224802363,
+    st_zones_prop_income_3: 0.027984079257657914, st_zones_prop_race_1: 0.026327462059027362}
+  T-Score: {st_b_ln_residential_units: 30.469894676565357, st_b_ln_sqft_per_unit: -0.5045465709193463,
+    st_zones_mean_age_of_head: 16.468879747459244, st_zones_mean_hh_size: 7.510453176269224,
+    st_zones_popden: 2.579502895064976, st_zones_prop_income_2: 10.634757687823953,
+    st_zones_prop_income_3: 8.38993176284711, st_zones_prop_race_1: -8.784666185043747}
+fitted: true
+interaction_predict_filters: null
+log_likelihoods: {convergence: -13363.282316592218, 'null': -13815.510557964428, ratio: 0.03273337163146006}
+model_expression: [st_b_ln_residential_units, st_b_ln_sqft_per_unit, st_zones_popden,
+  st_zones_prop_income_3, st_zones_prop_income_2, st_zones_mean_age_of_head, st_zones_mean_hh_size,
+  st_zones_prop_race_1]
+model_type: discretechoice
+name: MNLDiscreteChoiceModel
+prediction_sample_size: null
+probability_mode: single_chooser
+sample_size: 1000

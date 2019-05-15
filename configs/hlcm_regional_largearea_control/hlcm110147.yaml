@@ -1,0 +1,31 @@
+alts_fit_filters: (residential_units > 0) & (large_area_id == 147)
+alts_predict_filters: (vacant_residential_units > 0) & (large_area_id == 147)
+choice_column: null
+choice_mode: aggregate
+choosers_fit_filters: (building_id > 1) & (hh_type_large_area_id == 110147)
+choosers_predict_filters: hh_type_large_area_id == 110147
+estimation_sample_size: 2000
+fit_parameters:
+  Coefficient: {st_b_ln_residential_units: 0.34110325279839365, st_b_ln_sqft_per_unit: -0.17386786779606062,
+    st_zones_mean_hh_size: 0.07751832874399774, st_zones_prop_hh_with_children: 0.17360327231466996,
+    st_zones_prop_income_2: 0.23889323470174806, st_zones_prop_income_3: 0.2563675752640331,
+    st_zones_prop_race_1: 0.00420616189721011, st_zones_prop_retail_buildings: -0.02958946872054458}
+  Std. Error: {st_b_ln_residential_units: 0.0089732613534079, st_b_ln_sqft_per_unit: 0.08022242837895553,
+    st_zones_mean_hh_size: 0.041722519925541345, st_zones_prop_hh_with_children: 0.03994674824768743,
+    st_zones_prop_income_2: 0.02488690040735684, st_zones_prop_income_3: 0.028545363300323624,
+    st_zones_prop_race_1: 0.02904040615122981, st_zones_prop_retail_buildings: 0.029651367171246886}
+  T-Score: {st_b_ln_residential_units: 38.01329743603736, st_b_ln_sqft_per_unit: -2.1673224222874654,
+    st_zones_mean_hh_size: 1.8579493492324564, st_zones_prop_hh_with_children: 4.345867434271576,
+    st_zones_prop_income_2: 9.599155812554649, st_zones_prop_income_3: 8.981058414524597,
+    st_zones_prop_race_1: 0.14483826001972036, st_zones_prop_retail_buildings: -0.9979124587967624}
+fitted: true
+interaction_predict_filters: null
+log_likelihoods: {convergence: -13340.750629041187, 'null': -13815.510557964428, ratio: 0.034364269560023475}
+model_expression: [st_b_ln_residential_units, st_b_ln_sqft_per_unit, st_zones_prop_retail_buildings,
+  st_zones_prop_income_3, st_zones_prop_income_2, st_zones_prop_hh_with_children,
+  st_zones_mean_hh_size, st_zones_prop_race_1]
+model_type: discretechoice
+name: MNLDiscreteChoiceModel
+prediction_sample_size: null
+probability_mode: single_chooser
+sample_size: 1000

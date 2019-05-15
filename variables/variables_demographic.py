@@ -52,6 +52,10 @@ def household_type(households, household_type_map):
     return df.household_type.fillna(0)
 
 @orca.column('households', cache=True, cache_scope='iteration')
+def hh_type_large_area_id(households):
+    return (households.household_type*10000 + households.large_area_id).fillna(0).astype('int')
+
+@orca.column('households', cache=True, cache_scope='iteration')
 def zone_id(households, buildings):
     return misc.reindex(buildings.zone_id, households.building_id)
 

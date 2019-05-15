@@ -1,0 +1,34 @@
+alts_fit_filters: (residential_units > 0) & (large_area_id == 93)
+alts_predict_filters: (vacant_residential_units > 0) & (large_area_id == 93)
+choice_column: null
+choice_mode: aggregate
+choosers_fit_filters: (building_id > 1) & (hh_type_large_area_id == 130093)
+choosers_predict_filters: hh_type_large_area_id == 130093
+estimation_sample_size: 2000
+fit_parameters:
+  Coefficient: {st_b_ln_residential_units: 0.34015207778000045, st_b_ln_sqft_per_unit: 1.169250159120096,
+    st_parcels_max_height: -0.018733191304773966, st_zones_ln_popden: 0.1021359326930229,
+    st_zones_mean_age_of_head: 0.2641317742404382, st_zones_mean_hh_size: -0.41920428748960353,
+    st_zones_prop_income_4: 0.7337045773765937, st_zones_prop_race_1: -0.04745639271425142,
+    st_zones_prop_residential_buildings: -0.026578484428735328}
+  Std. Error: {st_b_ln_residential_units: 0.011448966224982171, st_b_ln_sqft_per_unit: 0.07330529262876813,
+    st_parcels_max_height: 0.02261540450620844, st_zones_ln_popden: 0.030574417054954287,
+    st_zones_mean_age_of_head: 0.029272011325197668, st_zones_mean_hh_size: 0.03036394697045651,
+    st_zones_prop_income_4: 0.02959893423025516, st_zones_prop_race_1: 0.0366587948757532,
+    st_zones_prop_residential_buildings: 0.03382138248373748}
+  T-Score: {st_b_ln_residential_units: 29.710287470127472, st_b_ln_sqft_per_unit: 15.950419365234652,
+    st_parcels_max_height: -0.8283376624827242, st_zones_ln_popden: 3.3405684402565825,
+    st_zones_mean_age_of_head: 9.023355836606646, st_zones_mean_hh_size: -13.805987999435008,
+    st_zones_prop_income_4: 24.78820932094989, st_zones_prop_race_1: -1.2945431751123917,
+    st_zones_prop_residential_buildings: -0.7858485513274097}
+fitted: true
+interaction_predict_filters: null
+log_likelihoods: {convergence: -12612.022199704043, 'null': -13815.510557964428, ratio: 0.08711139217121389}
+model_expression: [st_b_ln_residential_units, st_b_ln_sqft_per_unit, st_parcels_max_height,
+  st_zones_prop_residential_buildings, st_zones_ln_popden, st_zones_prop_income_4,
+  st_zones_mean_age_of_head, st_zones_mean_hh_size, st_zones_prop_race_1]
+model_type: discretechoice
+name: MNLDiscreteChoiceModel
+prediction_sample_size: null
+probability_mode: single_chooser
+sample_size: 1000
