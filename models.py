@@ -85,7 +85,7 @@ for name, model in location_choice_models_regional.items():
                                          model.choosers,
                                          choice_function=lcm_utils.unit_choices)
 
-# Register REGIONAL with LARGE AREA CONTROL location choice models
+# RUN 5 Register REGIONAL with LARGE AREA CONTROL location choice models
 location_choice_models_regional_lacontrol = {}
 hlcm_step_names_regional_lacontrol = []
 elcm_step_names_regional_lacontrol = []
@@ -118,6 +118,40 @@ for name, model in location_choice_models_regional_lacontrol.items():
     lcm_utils.register_choice_model_step(model.name,
                                          model.choosers,
                                          choice_function=lcm_utils.unit_choices)
+# RUN 6 Register REGIONAL WITH ACCESSIBILITY VARS
+location_choice_models_regional_accessvars = {}
+hlcm_step_names_regional_accessvars = []
+elcm_step_names_regional_accessvars = []
+model_configs = lcm_utils.get_model_category_configs('yaml_configs_regional_accessvars.yaml')
+for model_category_name, model_category_attributes in model_configs.items():
+    if model_category_attributes['model_type'] == 'location_choice':
+        model_config_files = model_category_attributes['config_filenames']
+
+        for model_config in model_config_files:
+            model = lcm_utils.create_lcm_from_config(model_config,
+                                                     model_category_attributes)
+            location_choice_models_regional_accessvars[model.name] = model
+
+            if model_category_name == 'hlcm':
+                hlcm_step_names_regional_accessvars.append(model.name)
+
+            if model_category_name == 'elcm':
+                elcm_step_names_regional_accessvars.append(model.name)
+
+def merge_two_dicts(x, y):
+    z = x.copy()
+    z.update(y)
+    return z
+lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models_regional_accessvars)
+orca.add_injectable('location_choice_models', lcm_models_updated)
+orca.add_injectable('hlcm_step_names_regional_accessvars', sorted(hlcm_step_names_regional_accessvars, reverse=True))
+orca.add_injectable('elcm_step_names_regional_accessvars', sorted(elcm_step_names_regional_accessvars, reverse=True))
+
+for name, model in location_choice_models_regional_lacontrol.items():
+    lcm_utils.register_choice_model_step(model.name,
+                                         model.choosers,
+                                         choice_function=lcm_utils.unit_choices)
+
 @orca.step()
 def elcm_home_based(jobs, households):
     wrap_jobs = jobs

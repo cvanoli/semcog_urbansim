@@ -1,0 +1,63 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (sector_id == 5) & (home_based_status == 0)
+
+choosers_predict_filters: (sector_id == 5) & (home_based_status == 0)
+
+alts_fit_filters: non_residential_sqft > 0
+
+alts_predict_filters: non_residential_sqft > 0
+
+interaction_predict_filters: null
+
+choice_column: building_id
+
+sample_size: 30
+
+estimation_sample_size: 5000
+
+prediction_sample_size: null
+
+model_expression:
+- st_is_retail
+- st_b_ln_non_residential_sqft
+- st_zones_ln_empden_5
+- st_nodes_drv_log_sum_45min_jobs
+- st_building_age
+- st_nodes_walk_ave_income
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_non_residential_sqft: 1.7478964245536524
+        st_building_age: -0.3241008436283475
+        st_is_retail: 0.33842878197707266
+        st_nodes_drv_log_sum_45min_jobs: 0.001936766172523576
+        st_nodes_walk_ave_income: 0.00600558149245321
+        st_zones_ln_empden_5: 0.17920476033145188
+    Std. Error:
+        st_b_ln_non_residential_sqft: 0.008073593555090497
+        st_building_age: 0.020835285124220247
+        st_is_retail: 0.0059224825859245335
+        st_nodes_drv_log_sum_45min_jobs: 0.022803413135898676
+        st_nodes_walk_ave_income: 0.004545418234459536
+        st_zones_ln_empden_5: 0.006769205653102316
+    T-Score:
+        st_b_ln_non_residential_sqft: 216.4954691646055
+        st_building_age: -15.555383173114933
+        st_is_retail: 57.14306071264572
+        st_nodes_drv_log_sum_45min_jobs: 0.08493317035398476
+        st_nodes_walk_ave_income: 1.3212384829461774
+        st_zones_ln_empden_5: 26.473528729227283
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -9560.959873577622
+    'null': -17005.986908309435
+    ratio: 0.4377885902695854

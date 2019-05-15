@@ -1,0 +1,55 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & household_type == 17
+
+choosers_predict_filters: household_type == 17
+
+alts_fit_filters: (residential_units > 0)
+
+alts_predict_filters: vacant_residential_units > 0
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_b_ln_building_sqft
+- st_nodes_walk_percent_hh_with_children
+- st_nodes_walk_percent_high_income
+- st_parcels_total_units
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_building_sqft: 0.45334757013108024
+        st_nodes_walk_percent_hh_with_children: 0.11663593909618863
+        st_nodes_walk_percent_high_income: 0.5293931770104731
+        st_parcels_total_units: 0.03203531945527683
+    Std. Error:
+        st_b_ln_building_sqft: 0.024413941668942205
+        st_nodes_walk_percent_hh_with_children: 0.024668050427208675
+        st_nodes_walk_percent_high_income: 0.023521139766833427
+        st_parcels_total_units: 0.029773651159126675
+    T-Score:
+        st_b_ln_building_sqft: 18.569208376040272
+        st_nodes_walk_percent_hh_with_children: 4.728218771903436
+        st_nodes_walk_percent_high_income: 22.50712262494002
+        st_parcels_total_units: 1.075962074119246
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -13108.960632859269
+    'null': -13815.510557964428
+    ratio: 0.051141788943720456

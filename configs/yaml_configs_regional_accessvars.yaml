@@ -1,0 +1,33 @@
+elcm:
+  - lcm_regional_accessvars/elcm/elcm2.yaml
+  - lcm_regional_accessvars/elcm/elcm3.yaml
+  - lcm_regional_accessvars/elcm/elcm4.yaml
+  - lcm_regional_accessvars/elcm/elcm5.yaml
+  - lcm_regional_accessvars/elcm/elcm6.yaml
+  - lcm_regional_accessvars/elcm/elcm8.yaml
+  - lcm_regional_accessvars/elcm/elcm9.yaml
+  - lcm_regional_accessvars/elcm/elcm10.yaml
+  - lcm_regional_accessvars/elcm/elcm11.yaml
+  - lcm_regional_accessvars/elcm/elcm14.yaml
+  - lcm_regional_accessvars/elcm/elcm16.yaml
+  - lcm_regional_accessvars/elcm/elcm17.yaml
+
+hlcm:
+  - lcm_regional_accessvars/hlcm/hlcm1.yaml
+  - lcm_regional_accessvars/hlcm/hlcm2.yaml
+  - lcm_regional_accessvars/hlcm/hlcm3.yaml
+  - lcm_regional_accessvars/hlcm/hlcm4.yaml
+  - lcm_regional_accessvars/hlcm/hlcm5.yaml
+  - lcm_regional_accessvars/hlcm/hlcm6.yaml
+  - lcm_regional_accessvars/hlcm/hlcm7.yaml
+  - lcm_regional_accessvars/hlcm/hlcm8.yaml
+  - lcm_regional_accessvars/hlcm/hlcm9.yaml
+  - lcm_regional_accessvars/hlcm/hlcm10.yaml
+  - lcm_regional_accessvars/hlcm/hlcm11.yaml
+  - lcm_regional_accessvars/hlcm/hlcm12.yaml
+  - lcm_regional_accessvars/hlcm/hlcm13.yaml
+  - lcm_regional_accessvars/hlcm/hlcm14.yaml
+  - lcm_regional_accessvars/hlcm/hlcm15.yaml
+  - lcm_regional_accessvars/hlcm/hlcm16.yaml
+  - lcm_regional_accessvars/hlcm/hlcm17.yaml
+  - lcm_regional_accessvars/hlcm/hlcm18.yaml

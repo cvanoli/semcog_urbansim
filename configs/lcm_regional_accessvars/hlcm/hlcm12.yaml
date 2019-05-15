@@ -1,0 +1,71 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & household_type == 12
+
+choosers_predict_filters: household_type == 12
+
+alts_fit_filters: (residential_units > 0)
+
+alts_predict_filters: vacant_residential_units > 0
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_sqft_price_res
+- st_b_ln_building_sqft
+- st_nodes_walk_percent_hh_with_children
+- st_nodes_walk_percent_mid_income
+- st_nodes_drv_log_sum_60min_jobs
+- st_nodes_walk_ln_popden
+- st_parcels_total_units
+- st_nodes_walk_log_sum_nonresidential_units
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_building_sqft: 0.6685713666719647
+        st_nodes_drv_log_sum_60min_jobs: -0.13939834985976848
+        st_nodes_walk_ln_popden: 0.3146541902306379
+        st_nodes_walk_log_sum_nonresidential_units: 0.13237020924924625
+        st_nodes_walk_percent_hh_with_children: 0.24820650530884658
+        st_nodes_walk_percent_mid_income: 0.6010002379033206
+        st_parcels_total_units: 0.060162462358591504
+        st_sqft_price_res: -0.05154779025731314
+    Std. Error:
+        st_b_ln_building_sqft: 0.01425221649060055
+        st_nodes_drv_log_sum_60min_jobs: 0.023244158686502963
+        st_nodes_walk_ln_popden: 0.02705189197256686
+        st_nodes_walk_log_sum_nonresidential_units: 0.024274101309974396
+        st_nodes_walk_percent_hh_with_children: 0.024694930318217977
+        st_nodes_walk_percent_mid_income: 0.027961694529536594
+        st_parcels_total_units: 0.015885357912912342
+        st_sqft_price_res: 0.029452967013239607
+    T-Score:
+        st_b_ln_building_sqft: 46.90999235893539
+        st_nodes_drv_log_sum_60min_jobs: -5.997134666814679
+        st_nodes_walk_ln_popden: 11.631504020115361
+        st_nodes_walk_log_sum_nonresidential_units: 5.453145620466469
+        st_nodes_walk_percent_hh_with_children: 10.05090932067702
+        st_nodes_walk_percent_mid_income: 21.493698719456003
+        st_parcels_total_units: 3.7872903266276876
+        st_sqft_price_res: -1.7501730889842622
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -12752.671162023451
+    'null': -13815.510557964428
+    ratio: 0.07693088080109112

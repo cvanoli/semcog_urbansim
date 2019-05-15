@@ -1,0 +1,67 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & household_type == 9
+
+choosers_predict_filters: household_type == 9
+
+alts_fit_filters: (residential_units > 0)
+
+alts_predict_filters: vacant_residential_units > 0
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_sqft_price_res
+- st_b_ln_building_sqft
+- st_building_type_id_is_83
+- st_nodes_walk_percent_mid_income
+- st_nodes_walk_percent_hh_with_children
+- st_nodes_drv_log_sum_30min_jobs
+- st_zones_a_ln_emp_50min_transit
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_building_sqft: 0.5311178993823129
+        st_building_type_id_is_83: 0.2395425850870868
+        st_nodes_drv_log_sum_30min_jobs: 0.0012486699539436326
+        st_nodes_walk_percent_hh_with_children: -0.2644250741429004
+        st_nodes_walk_percent_mid_income: 0.48035043445733566
+        st_sqft_price_res: -0.07886617723075735
+        st_zones_a_ln_emp_50min_transit: 0.0951108517630039
+    Std. Error:
+        st_b_ln_building_sqft: 0.01921079119361421
+        st_building_type_id_is_83: 0.008987508272739786
+        st_nodes_drv_log_sum_30min_jobs: 0.028317730095988983
+        st_nodes_walk_percent_hh_with_children: 0.02467729093960101
+        st_nodes_walk_percent_mid_income: 0.029231782763541228
+        st_sqft_price_res: 0.030665521324703095
+        st_zones_a_ln_emp_50min_transit: 0.02551246817097419
+    T-Score:
+        st_b_ln_building_sqft: 27.646851919293148
+        st_building_type_id_is_83: 26.652836116284735
+        st_nodes_drv_log_sum_30min_jobs: 0.0440949874764326
+        st_nodes_walk_percent_hh_with_children: -10.715320202290233
+        st_nodes_walk_percent_mid_income: 16.432471407677653
+        st_sqft_price_res: -2.5718192231490113
+        st_zones_a_ln_emp_50min_transit: 3.7280145192385796
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -11070.306112372793
+    'null': -13815.510557964428
+    ratio: 0.19870452373611824

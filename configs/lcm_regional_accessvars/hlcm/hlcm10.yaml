@@ -1,0 +1,67 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & household_type == 10
+
+choosers_predict_filters: household_type == 10
+
+alts_fit_filters: (residential_units > 0)
+
+alts_predict_filters: vacant_residential_units > 0
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_sqft_price_res
+- st_b_ln_building_sqft
+- st_b_ln_residential_units
+- st_nodes_walk_percent_race1
+- st_nodes_walk_hhsize
+- st_nodes_walk_percent_mid_income
+- st_jobs_within_30_min
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_building_sqft: 0.14842038036147343
+        st_b_ln_residential_units: 0.18235044220155178
+        st_jobs_within_30_min: 0.14227826333146523
+        st_nodes_walk_hhsize: 0.20403343909733562
+        st_nodes_walk_percent_mid_income: 0.43818637483931544
+        st_nodes_walk_percent_race1: -0.18067758568704897
+        st_sqft_price_res: -0.07960834472793513
+    Std. Error:
+        st_b_ln_building_sqft: 0.04085675063113254
+        st_b_ln_residential_units: 0.023643622627322433
+        st_jobs_within_30_min: 0.029803895755640537
+        st_nodes_walk_hhsize: 0.026235033426973312
+        st_nodes_walk_percent_mid_income: 0.02959570915791608
+        st_nodes_walk_percent_race1: 0.031036670196394122
+        st_sqft_price_res: 0.03559995184332426
+    T-Score:
+        st_b_ln_building_sqft: 3.6327015259108295
+        st_b_ln_residential_units: 7.712457818998882
+        st_jobs_within_30_min: 4.773814285823301
+        st_nodes_walk_hhsize: 7.777136616397846
+        st_nodes_walk_percent_mid_income: 14.80573999768855
+        st_nodes_walk_percent_race1: -5.8214229987867805
+        st_sqft_price_res: -2.236192483582344
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -13468.004953504735
+    'null': -13815.510557964428
+    ratio: 0.02515329440788283

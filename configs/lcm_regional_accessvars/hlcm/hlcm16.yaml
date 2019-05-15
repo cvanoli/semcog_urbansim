@@ -1,0 +1,55 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & household_type == 16
+
+choosers_predict_filters: household_type == 16
+
+alts_fit_filters: (residential_units > 0)
+
+alts_predict_filters: vacant_residential_units > 0
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_b_ln_building_sqft
+- st_nodes_walk_percent_hh_with_children
+- st_nodes_walk_percent_high_income
+- st_nodes_drv_log_sum_60min_jobs
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_building_sqft: 0.41290802644144137
+        st_nodes_drv_log_sum_60min_jobs: 0.22429508222903427
+        st_nodes_walk_percent_hh_with_children: -0.1901344093284902
+        st_nodes_walk_percent_high_income: 0.5109175094000593
+    Std. Error:
+        st_b_ln_building_sqft: 0.02152992620901124
+        st_nodes_drv_log_sum_60min_jobs: 0.030102993961136613
+        st_nodes_walk_percent_hh_with_children: 0.024991587160252637
+        st_nodes_walk_percent_high_income: 0.020822019717840548
+    T-Score:
+        st_b_ln_building_sqft: 19.178329848089344
+        st_nodes_drv_log_sum_60min_jobs: 7.450922739399355
+        st_nodes_walk_percent_hh_with_children: -7.607936547178789
+        st_nodes_walk_percent_high_income: 24.537365554519155
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -13261.515353225654
+    'null': -13815.510557964428
+    ratio: 0.040099510069818156

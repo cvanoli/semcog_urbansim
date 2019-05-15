@@ -1,0 +1,71 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (sector_id == 2) & (home_based_status == 0)
+
+choosers_predict_filters: (sector_id == 2) & (home_based_status == 0)
+
+alts_fit_filters: non_residential_sqft > 0
+
+alts_predict_filters: non_residential_sqft > 0
+
+interaction_predict_filters: null
+
+choice_column: building_id
+
+sample_size: 30
+
+estimation_sample_size: 5000
+
+prediction_sample_size: null
+
+model_expression:
+- st_is_office
+- st_is_industrial
+- st_b_ln_non_residential_sqft
+- st_zones_ln_empden_2
+- st_nodes_drv_log_sum_60min_jobs
+- st_building_age
+- st_nodes_walk_log_sum_residential_units
+- st_sqft_price_nonres
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_non_residential_sqft: 0.6152497111299279
+        st_building_age: -0.2913936130871791
+        st_is_industrial: 0.08310742179614633
+        st_is_office: 0.1278413012582051
+        st_nodes_drv_log_sum_60min_jobs: -0.008353228557359791
+        st_nodes_walk_log_sum_residential_units: -0.09118519130518843
+        st_sqft_price_nonres: -0.010547621277605633
+        st_zones_ln_empden_2: 0.19470835871773076
+    Std. Error:
+        st_b_ln_non_residential_sqft: 0.008189498836890375
+        st_building_age: 0.0195285016097799
+        st_is_industrial: 0.0033426978648218087
+        st_is_office: 0.003793043621617715
+        st_nodes_drv_log_sum_60min_jobs: 0.022291088097411083
+        st_nodes_walk_log_sum_residential_units: 0.009991084935240441
+        st_sqft_price_nonres: 0.007554141350155802
+        st_zones_ln_empden_2: 0.005165809240223472
+    T-Score:
+        st_b_ln_non_residential_sqft: 75.12666200750614
+        st_building_age: -14.9214527007668
+        st_is_industrial: 24.862379179033756
+        st_is_office: 33.704147384332316
+        st_nodes_drv_log_sum_60min_jobs: -0.37473399776881894
+        st_nodes_walk_log_sum_residential_units: -9.12665560309282
+        st_sqft_price_nonres: -1.3962700442967078
+        st_zones_ln_empden_2: 37.6917438610853
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -13939.285306970634
+    'null': -17005.986908309435
+    ratio: 0.18033070458500433

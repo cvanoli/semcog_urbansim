@@ -1,0 +1,71 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & household_type == 18
+
+choosers_predict_filters: household_type == 18
+
+alts_fit_filters: (residential_units > 0)
+
+alts_predict_filters: vacant_residential_units > 0
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_b_ln_building_sqft
+- st_nodes_walk_percent_hh_with_children
+- st_nodes_walk_percent_high_income
+- st_nodes_walk_ln_popden
+- st_nodes_drv_log_sum_60min_jobs
+- st_parcels_ave_unit_size
+- st_nodes_walk_percent_race2
+- st_nodes_walk_percent_race4
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_building_sqft: 0.6227809306748092
+        st_nodes_drv_log_sum_60min_jobs: 0.030638397421063415
+        st_nodes_walk_ln_popden: 0.13072721082096592
+        st_nodes_walk_percent_hh_with_children: 0.11039010357842878
+        st_nodes_walk_percent_high_income: 0.5380225837187935
+        st_nodes_walk_percent_race2: -0.35824451538574653
+        st_nodes_walk_percent_race4: 0.054183123886436216
+        st_parcels_ave_unit_size: -0.4287363959692235
+    Std. Error:
+        st_b_ln_building_sqft: 0.019383038022160144
+        st_nodes_drv_log_sum_60min_jobs: 0.03325332444886923
+        st_nodes_walk_ln_popden: 0.029381752630470048
+        st_nodes_walk_percent_hh_with_children: 0.025141828894419193
+        st_nodes_walk_percent_high_income: 0.03529813274404702
+        st_nodes_walk_percent_race2: 0.0413168240216474
+        st_nodes_walk_percent_race4: 0.01746672303968928
+        st_parcels_ave_unit_size: 0.03178195292967538
+    T-Score:
+        st_b_ln_building_sqft: 32.130202188263745
+        st_nodes_drv_log_sum_60min_jobs: 0.9213634404636276
+        st_nodes_walk_ln_popden: 4.449265245171134
+        st_nodes_walk_percent_hh_with_children: 4.390695046171936
+        st_nodes_walk_percent_high_income: 15.242239231748888
+        st_nodes_walk_percent_race2: -8.670669245972272
+        st_nodes_walk_percent_race4: 3.102077233566766
+        st_parcels_ave_unit_size: -13.489932381370581
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -13114.250017788705
+    'null': -13815.510557964428
+    ratio: 0.05075893049580116

@@ -1,0 +1,59 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & household_type == 2
+
+choosers_predict_filters: household_type == 2
+
+alts_fit_filters: (residential_units > 0)
+
+alts_predict_filters: vacant_residential_units > 0
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_sqft_per_unit
+- st_sqft_price_res
+- st_b_ln_residential_units
+- st_nodes_walk_percent_low_income
+- st_nodes_walk_ln_empden
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_residential_units: 0.39270111517996675
+        st_nodes_walk_ln_empden: -0.011023248265941829
+        st_nodes_walk_percent_low_income: 0.44758120924867745
+        st_sqft_per_unit: -0.2596200260750585
+        st_sqft_price_res: -0.28156371161474536
+    Std. Error:
+        st_b_ln_residential_units: 0.006110729187617136
+        st_nodes_walk_ln_empden: 0.02149047059993825
+        st_nodes_walk_percent_low_income: 0.02868017543233766
+        st_sqft_per_unit: 0.03989248759930503
+        st_sqft_price_res: 0.037524107170254055
+    T-Score:
+        st_b_ln_residential_units: 64.26419877610377
+        st_nodes_walk_ln_empden: -0.5129365694752865
+        st_nodes_walk_percent_low_income: 15.60594391427668
+        st_sqft_per_unit: -6.507992900387124
+        st_sqft_price_res: -7.50354193205016
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -11527.379714128518
+    'null': -13815.510557964428
+    ratio: 0.16562043322509268

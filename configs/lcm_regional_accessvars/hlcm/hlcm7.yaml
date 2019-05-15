@@ -1,0 +1,71 @@
+name: MNLDiscreteChoiceModel
+
+model_type: discretechoice
+
+choosers_fit_filters: (building_id > 1) & household_type == 7
+
+choosers_predict_filters: household_type == 7
+
+alts_fit_filters: (residential_units > 0)
+
+alts_predict_filters: vacant_residential_units > 0
+
+interaction_predict_filters: null
+
+choice_column: null
+
+sample_size: 1000
+
+estimation_sample_size: 2000
+
+prediction_sample_size: null
+
+model_expression:
+- st_sqft_price_res
+- st_b_ln_residential_units
+- st_b_ln_building_sqft
+- st_stories
+- st_nodes_walk_quarter_mile_to_transit
+- st_nodes_walk_midinc_hhs
+- st_nodes_walk_percent_hh_with_children
+- st_nodes_walk_hhsize
+
+fitted: true
+
+choice_mode: aggregate
+
+fit_parameters:
+    Coefficient:
+        st_b_ln_building_sqft: 0.07875803435441657
+        st_b_ln_residential_units: 0.3106765705619226
+        st_nodes_walk_hhsize: -0.13150154586727172
+        st_nodes_walk_midinc_hhs: -0.031729504859869875
+        st_nodes_walk_percent_hh_with_children: -0.20065452704061867
+        st_nodes_walk_quarter_mile_to_transit: -0.1839548243089492
+        st_sqft_price_res: 0.019026614175971734
+        st_stories: -0.004351750585339338
+    Std. Error:
+        st_b_ln_building_sqft: 0.0402235120553525
+        st_b_ln_residential_units: 0.022996125756753066
+        st_nodes_walk_hhsize: 0.04546576084053196
+        st_nodes_walk_midinc_hhs: 0.024854958954427235
+        st_nodes_walk_percent_hh_with_children: 0.03947442839251685
+        st_nodes_walk_quarter_mile_to_transit: 0.026589308365557868
+        st_sqft_price_res: 0.026090536424346708
+        st_stories: 0.0093024427711283
+    T-Score:
+        st_b_ln_building_sqft: 1.9580098884959578
+        st_b_ln_residential_units: 13.509952669774778
+        st_nodes_walk_hhsize: -2.892320362316258
+        st_nodes_walk_midinc_hhs: -1.2765864919772127
+        st_nodes_walk_percent_hh_with_children: -5.083152187674405
+        st_nodes_walk_quarter_mile_to_transit: -6.9183756786706345
+        st_sqft_price_res: 0.7292534682505344
+        st_stories: -0.46780729453619757
+
+probability_mode: single_chooser
+
+log_likelihoods:
+    convergence: -13019.78133852985
+    'null': -13815.510557964428
+    ratio: 0.05759680151493585
