@@ -127,7 +127,7 @@ for model_category_name, model_category_attributes in model_configs.items():
             model = lcm_utils.create_lcm_from_config(model_config,
                                                      model_category_attributes)
             location_choice_models_regional_accessvars[model.name] = model
-m
+
             if model_category_name == 'hlcm':
                 hlcm_step_names_regional_accessvars.append(model.name)
 
