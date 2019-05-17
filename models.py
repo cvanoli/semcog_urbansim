@@ -139,7 +139,7 @@ orca.add_injectable('location_choice_models', lcm_models_updated)
 orca.add_injectable('hlcm_step_names_regional_accessvars', sorted(hlcm_step_names_regional_accessvars, reverse=True))
 orca.add_injectable('elcm_step_names_regional_accessvars', sorted(elcm_step_names_regional_accessvars, reverse=True))
 
-for name, model in location_choice_models_regional_lacontrol.items():
+for name, model in location_choice_models_regional_accessvars.items():
     lcm_utils.register_choice_model_step(model.name,
                                          model.choosers,
                                          choice_function=lcm_utils.unit_choices)
