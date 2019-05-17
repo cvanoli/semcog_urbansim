@@ -127,7 +127,7 @@ for model_category_name, model_category_attributes in model_configs.items():
             model = lcm_utils.create_lcm_from_config(model_config,
                                                      model_category_attributes)
             location_choice_models_regional_accessvars[model.name] = model
-
+m
             if model_category_name == 'hlcm':
                 hlcm_step_names_regional_accessvars.append(model.name)
 
@@ -201,21 +201,21 @@ for repm_config in os.listdir('./configs/repm_semcog'):
     elif repm_config.startswith('nonres'):
         dep_var = 'sqft_price_nonres'
 
-    make_repm_func(model_name, "repm/" + repm_config, dep_var)
+    make_repm_func(model_name, "repm_semcog/" + repm_config, dep_var)
     repm_step_names.append(model_name)
 orca.add_injectable('repm_step_names', repm_step_names)
 
 # Regional REPMs
 repm_step_names_regional = []
 for repm_config in os.listdir('./configs/repm_regional_clustvars'):
-    model_name = repm_config.split('.')[0] + '_regional'
+    model_name = repm_config.split('.')[0]
 
     if repm_config.startswith('res'):
         dep_var = 'sqft_price_res'
     elif repm_config.startswith('nonres'):
         dep_var = 'sqft_price_nonres'
 
-    make_repm_func(model_name, "repm_regional/" + repm_config, dep_var, False)
+    make_repm_func(model_name, "repm_regional_clustvars/" + repm_config, dep_var, False)
     repm_step_names_regional.append(model_name)
 orca.add_injectable('repm_step_names_regional', repm_step_names_regional)
 
