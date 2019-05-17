@@ -30,8 +30,8 @@ orca.run([
     "non_residential_developer"] +
     orca.get_injectable('repm_step_names_regional') +  # In place of ['nrh_simulate', 'rsh_simulate']
     ["increase_property_values"] +  # Hack to make more feasibility
-    orca.get_injectable('hlcm_step_names_regional') +
-    orca.get_injectable('elcm_step_names_regional') +
+    orca.get_injectable('hlcm_step_names_regional_clust') +
+    orca.get_injectable('elcm_step_names_regional_clust') +
     ["elcm_home_based",
     "jobs_scaling_model",
     "gq_pop_scaling_model",

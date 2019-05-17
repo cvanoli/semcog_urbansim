@@ -44,8 +44,8 @@ for model_category_name, model_category_attributes in model_configs.items():
                 elcm_step_names.append(model.name)
 
 orca.add_injectable('location_choice_models', location_choice_models)
-orca.add_injectable('hlcm_step_names', sorted(hlcm_step_names, reverse=True))
-orca.add_injectable('elcm_step_names', sorted(elcm_step_names, reverse=True))
+orca.add_injectable('hlcm_step_names_semcog', sorted(hlcm_step_names, reverse=True))
+orca.add_injectable('elcm_step_names_semcog', sorted(elcm_step_names, reverse=True))
 
 for name, model in location_choice_models.items():
     lcm_utils.register_choice_model_step(model.name,
@@ -55,7 +55,7 @@ for name, model in location_choice_models.items():
 location_choice_models_regional = {}
 hlcm_step_names_regional = []
 elcm_step_names_regional = []
-model_configs = lcm_utils.get_model_category_configs('yaml_configs_regional.yaml')
+model_configs = lcm_utils.get_model_category_configs('yaml_configs_regional_clustvars.yaml')
 for model_category_name, model_category_attributes in model_configs.items():
     if model_category_attributes['model_type'] == 'location_choice':
         model_config_files = model_category_attributes['config_filenames']
@@ -77,8 +77,8 @@ def merge_two_dicts(x, y):
     return z
 lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models_regional)
 orca.add_injectable('location_choice_models', lcm_models_updated)
-orca.add_injectable('hlcm_step_names_regional', sorted(hlcm_step_names_regional, reverse=True))
-orca.add_injectable('elcm_step_names_regional', sorted(elcm_step_names_regional, reverse=True))
+orca.add_injectable('hlcm_step_names_regional_clust', sorted(hlcm_step_names_regional, reverse=True))
+orca.add_injectable('elcm_step_names_regional_clust', sorted(elcm_step_names_regional, reverse=True))
 
 for name, model in location_choice_models_regional.items():
     lcm_utils.register_choice_model_step(model.name,
@@ -86,10 +86,10 @@ for name, model in location_choice_models_regional.items():
                                          choice_function=lcm_utils.unit_choices)
 
 # RUN 5 Register REGIONAL with LARGE AREA CONTROL location choice models
-location_choice_models_regional_lacontrol = {}
-hlcm_step_names_regional_lacontrol = []
-elcm_step_names_regional_lacontrol = []
-model_configs = lcm_utils.get_model_category_configs('yaml_configs_regional_largearea_control.yaml')
+location_choice_models_lacontrol = {}
+hlcm_step_names_lacontrol = []
+elcm_step_names_lacontrol = []
+model_configs = lcm_utils.get_model_category_configs('yaml_configs_la_control_clustvars.yaml')
 for model_category_name, model_category_attributes in model_configs.items():
     if model_category_attributes['model_type'] == 'location_choice':
         model_config_files = model_category_attributes['config_filenames']
@@ -97,28 +97,24 @@ for model_category_name, model_category_attributes in model_configs.items():
         for model_config in model_config_files:
             model = lcm_utils.create_lcm_from_config(model_config,
                                                      model_category_attributes)
-            location_choice_models_regional_lacontrol[model.name] = model
+            location_choice_models_lacontrol[model.name] = model
 
             if model_category_name == 'hlcm':
-                hlcm_step_names_regional_lacontrol.append(model.name)
+                hlcm_step_names_lacontrol.append(model.name)
 
             if model_category_name == 'elcm':
-                elcm_step_names_regional_lacontrol.append(model.name)
+                elcm_step_names_lacontrol.append(model.name)
 
-def merge_two_dicts(x, y):
-    z = x.copy()
-    z.update(y)
-    return z
-lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models_regional_lacontrol)
+lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models_lacontrol)
 orca.add_injectable('location_choice_models', lcm_models_updated)
-orca.add_injectable('hlcm_step_names_regional_lacontrol', sorted(hlcm_step_names_regional_lacontrol, reverse=True))
-orca.add_injectable('elcm_step_names_regional_lacontrol', sorted(elcm_step_names_regional_lacontrol, reverse=True))
+orca.add_injectable('hlcm_step_names_lacontrol', sorted(hlcm_step_names_lacontrol, reverse=True))
+orca.add_injectable('elcm_step_names_lacontrol', sorted(elcm_step_names_lacontrol, reverse=True))
 
-for name, model in location_choice_models_regional_lacontrol.items():
+for name, model in location_choice_models_lacontrol.items():
     lcm_utils.register_choice_model_step(model.name,
                                          model.choosers,
                                          choice_function=lcm_utils.unit_choices)
-# RUN 6 Register REGIONAL WITH ACCESSIBILITY VARS
+# REGISTER REGIONAL WITH ACCESSIBILITY VARS
 location_choice_models_regional_accessvars = {}
 hlcm_step_names_regional_accessvars = []
 elcm_step_names_regional_accessvars = []
@@ -138,10 +134,6 @@ for model_category_name, model_category_attributes in model_configs.items():
             if model_category_name == 'elcm':
                 elcm_step_names_regional_accessvars.append(model.name)
 
-def merge_two_dicts(x, y):
-    z = x.copy()
-    z.update(y)
-    return z
 lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models_regional_accessvars)
 orca.add_injectable('location_choice_models', lcm_models_updated)
 orca.add_injectable('hlcm_step_names_regional_accessvars', sorted(hlcm_step_names_regional_accessvars, reverse=True))
@@ -201,7 +193,7 @@ def make_repm_func(model_name, yaml_file, dep_var, access_vars= True):
 
 
 repm_step_names = []
-for repm_config in os.listdir('./configs/repm'):
+for repm_config in os.listdir('./configs/repm_semcog'):
     model_name = repm_config.split('.')[0]
 
     if repm_config.startswith('res'):
@@ -215,7 +207,7 @@ orca.add_injectable('repm_step_names', repm_step_names)
 
 # Regional REPMs
 repm_step_names_regional = []
-for repm_config in os.listdir('./configs/repm_regional'): # /repm_regional
+for repm_config in os.listdir('./configs/repm_regional_clustvars'):
     model_name = repm_config.split('.')[0] + '_regional'
 
     if repm_config.startswith('res'):
