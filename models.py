@@ -1175,7 +1175,9 @@ def neighborhood_vars(jobs, households, buildings):
     for var in orca.get_table('nodes_drv').columns:
         if var not in building_vars:
             variables_building.make_disagg_var('nodes_drv', 'buildings', var, 'nodeid_drv')
-
+    node_cols_to_st = [x for x in orca.get_table('buildings').columns if 'nodes_' in x]
+    for node_col in node_cols_to_st:
+        variables_building.register_standardized_variable('buildings', node_col)
 
 @orca.step()
 def travel_model(iter_var, travel_data, buildings, parcels, households, persons, jobs):
