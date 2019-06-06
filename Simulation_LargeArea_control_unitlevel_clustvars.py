@@ -38,7 +38,7 @@ orca.run([
     # "travel_model", Fixme: on hold
     ],
     iter_vars=range(2016, 2045 + 1),
-    data_out='runs/run_semcog_lacontrol_clustvars.h5',
+    data_out='runs/run_semcog_la_control_clustvars_unit_level.h5',
     out_base_tables=['jobs', 'base_job_space','households', 'persons', 'buildings', 'parcels',
                     'zones', 'semmcds', 'counties','large_areas'],
     out_run_tables=['buildings', 'jobs', 'base_job_space', 'parcels', 'households', 'persons'],
