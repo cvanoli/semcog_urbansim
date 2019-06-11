@@ -2,7 +2,7 @@ alts_fit_filters: (non_residential_sqft>0) & (large_area_id == 93)
 alts_predict_filters: large_area_id == 93
 choice_column: building_id
 choice_mode: aggregate
-choosers_fit_filters: (building_id > 0) (slid == 600093) & (home_based_status == 0))
+choosers_fit_filters: (building_id > 0) (slid == 600093) & (home_based_status == 0)
 choosers_predict_filters: (slid == 600093) & (home_based_status == 0)
 estimation_sample_size: 5000
 fit_parameters:
