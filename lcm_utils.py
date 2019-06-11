@@ -244,6 +244,15 @@ class SimulationChoiceModel(MNLDiscreteChoiceModel):
 
         choosers, alternatives = self.apply_predict_filters(
                                  choosers, alternatives)
+        #check if there are missing values in alternatives columns
+        for c in alternatives.columns:
+            if len(alternatives[alternatives[c].isnull()]) > 0:
+                print('Missing values in {} column in alternatives table'.format(c))
+        alts_1 = len(alternatives)
+        alternatives = alternatives[alternatives.isnull().any() == False]
+        alts_2 = len(alternatives)
+        if alts_1 != alts2:
+            print('There were {} rows dropped from the alternatives table'.format(alts_1 - alts2))
 
         # By convention, choosers are denoted by a -1 value
         # in the choice column
