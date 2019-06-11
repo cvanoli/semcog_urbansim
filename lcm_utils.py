@@ -331,6 +331,9 @@ class SimulationChoiceModel(MNLDiscreteChoiceModel):
         else:
             alternatives = orca.get_table(self.alternatives).to_frame(
                 columns_used + supply_column_names)
+            if alternatives.isnull().any().sum() > 0:
+                print('{} alternatives have missing values, those were dropped'.format(len(alternatives[alternatives.isnull() == True])))
+                alternatives = alternatives[alternatives.isnull() == False]
         return choosers, alternatives
 
     def score(self, scoring_function=accuracy_score, choosers=None,
