@@ -251,8 +251,8 @@ class SimulationChoiceModel(MNLDiscreteChoiceModel):
         alts_1 = len(alternatives)
         alternatives = alternatives[alternatives.isnull() == False]
         alts_2 = len(alternatives)
-        if alts_1 != alts2:
-            print('There were {} rows dropped from the alternatives table'.format(alts_1 - alts2))
+        if alts_1 != alts_2:
+            print('There were {} rows dropped from the alternatives table'.format(alts_1 - alts_2))
 
         # By convention, choosers are denoted by a -1 value
         # in the choice column
