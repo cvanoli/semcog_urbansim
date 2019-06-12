@@ -42,15 +42,15 @@ orca.run([
     "non_residential_developer"] +
     orca.get_injectable('repm_step_names') +  # In place of ['nrh_simulate', 'rsh_simulate']
     ["increase_property_values"] +  # Hack to make more feasibility
-    orca.get_injectable('hlcm_step_names') +
-    orca.get_injectable('elcm_step_names') +
+    orca.get_injectable('hlcm_step_names_semcog') +
+    orca.get_injectable('elcm_step_names_semcog') +
     ["elcm_home_based",
     "jobs_scaling_model",
     "gq_pop_scaling_model",
     # "travel_model", Fixme: on hold
     ],
     iter_vars=range(2016, 2045 + 1),
-    data_out='runs/run_official.h5',
+    data_out='runs/run_semcog_as_is.h5',
     out_base_tables=['jobs', 'base_job_space',
                      'households', 'persons', 'buildings', 'parcels', 'zones', 'semmcds', 'counties','large_areas'],
     out_run_tables=['buildings', 'jobs', 'base_job_space', 'parcels', 'households', 'persons'],

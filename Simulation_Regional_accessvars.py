@@ -38,7 +38,7 @@ from urbansim.utils import misc, networks
 
 
 orca.run(["refiner",
-          'build_networks'] +
+          'build_networks',"neighborhood_vars"] +
           orca.get_injectable('repm_step_names_regional') + # In place of ['nrh_simulate', 'rsh_simulate']
           ["increase_property_values"])  # Hack to make more feasibility
 
