@@ -173,6 +173,34 @@ for name, model in location_choice_models_lacontrol.items():
     lcm_utils.register_choice_model_step(model.name,
                                          model.choosers,
                                          choice_function=lcm_utils.unit_choices)
+# HH LOCATION CHOICE MODELS - CALIB
+location_choice_models = {}
+hlcm_step_names = []
+
+model_configs = lcm_utils.get_model_category_configs('yaml_configs_la_control_unit_level_calib.yaml')
+for model_category_name, model_category_attributes in model_configs.items():
+    if (model_category_attributes['model_type'] == 'location_choice'):
+        model_config_files = model_category_attributes['config_filenames']
+
+        for model_config in model_config_files:
+            model = lcm_utils.create_lcm_from_config(model_config,
+                                                     model_category_attributes)
+            location_choice_models[model.name] = model
+
+            if model_category_name == 'hlcm':
+                hlcm_step_names.append(model.name)
+
+
+lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models)
+orca.add_injectable('location_choice_models', lcm_models_updated)
+orca.add_injectable('hlcm_step_names_calib', sorted(hlcm_step_names, reverse=True))
+
+
+for name, model in location_choice_models.items():
+    lcm_utils.register_choice_model_step(model.name,
+                                         model.choosers,
+                                         choice_function=lcm_utils.unit_choices)
+
 @orca.step()
 def elcm_home_based(jobs, households):
     wrap_jobs = jobs
@@ -1071,8 +1099,8 @@ def residential_developer(households, parcels, target_vacancies):
     for lid, _ in parcels.large_area_id.to_frame().groupby('large_area_id'):
         la_orig_buildings = orig_buildings[orig_buildings.large_area_id == lid]
         target_vacancy = float(target_vacancies[target_vacancies.large_area_id == lid].res_target_vacancy_rate)
-        target_units = parcel_utils.compute_units_to_build(households.large_area_id == lid,
-                                                           'residential_units',
+        target_units = parcel_utils.compute_units_to_build((households.large_area_id == lid).sum(),
+                                                           la_orig_buildings.residential_units.sum(),
                                                            target_vacancy)
         register_btype_distributions(la_orig_buildings)
         run_developer(
@@ -1097,8 +1125,8 @@ def non_residential_developer(jobs, parcels, target_vacancies):
         la_orig_buildings = orig_buildings[orig_buildings.large_area_id == lid]
         target_vacancy = float(target_vacancies[target_vacancies.large_area_id == lid].non_res_target_vacancy_rate)
         num_jobs = ((jobs.large_area_id == lid) & (jobs.home_based_status == 0)).sum()
-        target_units = parcel_utils.compute_units_to_build((jobs.large_area_id == lid) & (jobs.home_based_status == 0),
-                                                           'job_spaces',
+        target_units = parcel_utils.compute_units_to_build(num_jobs,
+                                                           la_orig_buildings.job_spaces.sum(),
                                                            target_vacancy)
         register_btype_distributions(la_orig_buildings)
         run_developer(
