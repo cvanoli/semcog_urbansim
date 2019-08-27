@@ -240,10 +240,8 @@ def make_repm_func(model_name, yaml_file, dep_var, access_vars= True):
         buildings = orca.get_table('buildings')
         if access_vars:
             nodes_walk = orca.get_table('nodes_walk')
-            print yaml_file
             return utils.hedonic_simulate(yaml_file, buildings, nodes_walk, dep_var)
         else:
-            print yaml_file
             return utils.hedonic_simulate(yaml_file, buildings, None, dep_var)
 
     return func
