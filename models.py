@@ -204,8 +204,7 @@ for name, model in location_choice_models.items():
 # HH LOCATION CHOICE MODELS WHERE CHOOSER IS MOVER IN ESTIMATION
 location_choice_models = {}
 hlcm_step_names = []
-
-model_configs = lcm_utils.get_model_category_configs(yaml_filename = 'yaml_configs_unitlevel_choosermover.yaml')
+model_configs = lcm_utils.get_model_category_configs('yaml_configs_unitlevel_choosermover.yaml')
 for model_category_name, model_category_attributes in model_configs.items():
     if (model_category_attributes['model_type'] == 'location_choice'):
         model_config_files = model_category_attributes['config_filenames']
