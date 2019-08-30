@@ -18,7 +18,7 @@ hlcm:
   - hlcm_choosermover/hlcm17.yaml
   - hlcm_choosermover/hlcm18.yaml
 elcm:
-
+  - lcm_largearea_control/elcm/elcm200003.yaml
 res_repm:
 
 nonres_repm:
