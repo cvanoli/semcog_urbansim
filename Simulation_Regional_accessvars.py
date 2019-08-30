@@ -39,7 +39,7 @@ from urbansim.utils import misc, networks
 
 orca.run(["refiner",
           'build_networks',"neighborhood_vars"] +
-          orca.get_injectable('repm_step_names_regional')) 
+          orca.get_injectable('repm_step_names_regional'))
 
 orca.run(["neighborhood_vars",
     "scheduled_demolition_events",
