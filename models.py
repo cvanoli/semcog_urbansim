@@ -8,7 +8,7 @@ import numpy as np
 import yaml
 import pandas as pd
 import os
-# import pandana as pdna
+import pandana as pdna
 from urbansim.models import transition, relocation
 from urbansim.utils import misc, networks
 from variables import variables_building
