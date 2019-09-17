@@ -3,7 +3,7 @@ alts_predict_filters: large_area_id == 99
 choice_column: building_id
 choice_mode: aggregate
 choosers_fit_filters: (building_id > 0) (slid == 1700099) & (home_based_status ==
-  0))
+  0)
 choosers_predict_filters: (slid == 1700099) & (home_based_status == 0)
 estimation_sample_size: null
 fit_parameters:
