@@ -20,7 +20,6 @@ import assumptions
 import utils as utils
 import lcm_utils
 
-
 # Set up location choice model objects.
 # Register as injectable to be used throughout simulation
 location_choice_models = {}
@@ -70,10 +69,13 @@ for model_category_name, model_category_attributes in model_configs.items():
             if model_category_name == 'elcm':
                 elcm_step_names_regional.append(model.name)
 
+
 def merge_two_dicts(x, y):
     z = x.copy()
     z.update(y)
     return z
+
+
 lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models_regional)
 orca.add_injectable('location_choice_models', lcm_models_updated)
 orca.add_injectable('hlcm_step_names_regional_clust', sorted(hlcm_step_names_regional, reverse=True))
@@ -133,7 +135,8 @@ for model_category_name, model_category_attributes in model_configs.items():
             if model_category_name == 'elcm':
                 elcm_step_names_regional_accessvars.append(model.name)
 
-lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models_regional_accessvars)
+lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'),
+                                     location_choice_models_regional_accessvars)
 orca.add_injectable('location_choice_models', lcm_models_updated)
 orca.add_injectable('hlcm_step_names_regional_accessvars', sorted(hlcm_step_names_regional_accessvars, reverse=True))
 orca.add_injectable('elcm_step_names_regional_accessvars', sorted(elcm_step_names_regional_accessvars, reverse=True))
@@ -189,11 +192,9 @@ for model_category_name, model_category_attributes in model_configs.items():
             if model_category_name == 'hlcm':
                 hlcm_step_names.append(model.name)
 
-
 lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models)
 orca.add_injectable('location_choice_models', lcm_models_updated)
 orca.add_injectable('hlcm_step_names_calib', sorted(hlcm_step_names, reverse=True))
-
 
 for name, model in location_choice_models.items():
     lcm_utils.register_choice_model_step(model.name,
@@ -219,17 +220,16 @@ for model_category_name, model_category_attributes in model_configs.items():
             if model_category_name == 'elcm':
                 elcm_step_names.append(model.name)
 
-
 lcm_models_updated = merge_two_dicts(orca.get_injectable('location_choice_models'), location_choice_models)
 orca.add_injectable('location_choice_models', lcm_models_updated)
 orca.add_injectable('hlcm_step_names_choosermover', sorted(hlcm_step_names, reverse=True))
-orca.add_injectable('elcm_step_names_choosermover', sorted(hlcm_step_names, reverse=True))
-
+orca.add_injectable('elcm_step_names_choosermover', sorted(elcm_step_names, reverse=True))
 
 for name, model in location_choice_models.items():
     lcm_utils.register_choice_model_step(model.name,
                                          model.choosers,
                                          choice_function=lcm_utils.unit_choices)
+
 
 @orca.step()
 def elcm_home_based(jobs, households):
@@ -261,10 +261,11 @@ def diagnostic(parcels, buildings, jobs, households, nodes, iter_var):
     pdb.set_trace()
 
 
-def make_repm_func(model_name, yaml_file, dep_var, access_vars= True):
+def make_repm_func(model_name, yaml_file, dep_var, access_vars=True):
     """
     Generator function for single-model REPMs.
     """
+
     @orca.step(model_name)
     def func():
         buildings = orca.get_table('buildings')
@@ -303,6 +304,7 @@ for repm_config in os.listdir('./configs/repm_regional_clustvars'):
     make_repm_func(model_name, "repm_regional_clustvars/" + repm_config, dep_var, False)
     repm_step_names_regional.append(model_name)
 orca.add_injectable('repm_step_names_regional', repm_step_names_regional)
+
 
 @orca.step()
 def increase_property_values(buildings, income_growth_rates):
@@ -438,9 +440,9 @@ def households_transition_2(households, persons, annual_household_control_totals
     for col in ct.columns:
         i = 0
         if col.endswith('_max'):
-            if len(ct[col][ct[col]==-1]) > 0:
-                ct[col][ct[col]==-1] = np.inf
-                i+=1
+            if len(ct[col][ct[col] == -1]) > 0:
+                ct[col][ct[col] == -1] = np.inf
+                i += 1
             if i > 0:
                 ct[col] = ct[col] + 1
     tran = transition.TabularTotalsTransition(ct, 'total_number_of_households')
@@ -983,6 +985,7 @@ def cost_shifter_callback(self, form, df, costs):
         costs[:, geo_df.index] *= shifter
     return costs
 
+
 def parcel_custom_callback(parcels, df):
     parcels['max_height'] = orca.get_table('parcels').max_height
     parcels['max_far'] = orca.get_table('parcels').max_far
@@ -992,6 +995,7 @@ def parcel_custom_callback(parcels, df):
     parcels['ave_unit_size'] = orca.get_table('parcels').ave_unit_size
     parcels = parcels[parcels.parcel_size > 2000]
     return parcels
+
 
 @orca.step('feasibility')
 def feasibility(parcels):
@@ -1263,6 +1267,7 @@ def neighborhood_vars(jobs, households, buildings):
     node_cols_to_st = [x for x in orca.get_table('buildings').columns if 'nodes_' in x]
     for node_col in node_cols_to_st:
         variables_building.register_standardized_variable('buildings', node_col)
+
 
 @orca.step()
 def travel_model(iter_var, travel_data, buildings, parcels, households, persons, jobs):
